@@ -183,7 +183,7 @@
           <Badge
             v-for="binding in active"
             :key="binding.key"
-            :ref="(value) => badgeRef(binding.key, value)"
+            :ref="(value: unknown) => badgeRef(binding.key, value)"
             v-bind="selected?.key === binding.key ? anchor : {}"
             :label="`${binding.label}: ${binding.summary.text}`"
             :remove-label="`${binding.label}: ${messages.collectionRemoveFilter}`"

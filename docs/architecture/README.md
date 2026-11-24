@@ -20,7 +20,7 @@ Applications can split their JavaScript by importing Vue pages or features on de
 
 The entry point imports one backend stylesheet, including the documented document baseline its toolkit expects. UiApp is an application frame, not a substitute for that baseline. A backend exports native setup, locale resources and icon defaults through `./integration`; an optional `./vite` factory provides build plugins. Application assembly installs only the selected backend's hooks. They supply toolkit configuration and build processing without introducing a business-facing setup API or eager view registry. Selecting a backend for a build is distinct from selecting a presentation strategy for a form or another logical node. Renderless attachment and typed queries are available through [UiStrategy](../api/components/UiStrategy.md), with backend-specific support documented in the [strategy contract](../contracts/strategy.md).
 
-Consumer setup is described in [getting started](../getting-started.md). The [backend authoring reference](../api/backend/README.md) specifies view modules, bindings, events, and capability declarations.
+Consumer setup is described in [getting started](../getting-started.md). The [backend authoring reference](../api/backend/README.md) specifies view modules, bindings, events, and capability declarations. See [the package build](package-build.md) for compiled exports and release checks.
 
 ## Source organization
 

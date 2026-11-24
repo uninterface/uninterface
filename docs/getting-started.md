@@ -8,13 +8,15 @@ Use a Vue 3 project compatible with the current `^3.5.43` peer dependency and a 
 
 These instructions assume an existing Vue application. See the [API reference](api/README.md) for supported exports and limitations.
 
-## Source consumption
+## Package format
 
-Core exports Vue/TypeScript source. Use a package environment that resolves matching core and backend sources and their declared dependencies, including any `workspace:*` dependencies. Follow the selected backend’s setup guide for source resolution and native configuration.
+Core's compiled package provides ESM and TypeScript declarations. When using a Core source checkout, use a package environment that resolves its Vue/TypeScript source alongside a matching backend and any declared `workspace:*` dependencies. Follow the selected backend's setup guide for its package resolution and native configuration.
 
 ## Resolve core and select a backend
 
 Make `@uninterface/uninterface` available to the application and resolve the chosen backend under `@uninterface/backend`. The alias must resolve to the same package for the bundler and TypeScript, including imports from core. Core resolves the descriptor and statically imported component views through that alias. Keep one runtime copy of Vue and core.
+
+In a Vite app that consumes Core or its selected backend as Vue/TypeScript source, follow the selected backend's dependency optimizer configuration. Excluding Core and the backend alias from prebundling keeps setup and views on the same modules during development, so they share Vue injection keys.
 
 Choose a backend whose declared capabilities satisfy your application. Follow that package's installation guide for compatible versions, dependencies, build plugins, stylesheet effects and limitations. Core defines the integration protocol without maintaining toolkit-specific setup branches.
 

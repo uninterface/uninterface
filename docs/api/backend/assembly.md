@@ -69,7 +69,7 @@ states, focus, overlays and layout behavior. State acceptance policy and evidenc
 separately from any accessibility-conformance claim. A configurable theme does
 not authorize silently modifying native defaults to satisfy a test.
 
-Application assembly follows the selected backend’s setup guide. Development environments may automate the declared hooks; that orchestration is separate from this package’s exports. Core exports Vue/TypeScript source; see [source consumption](../../getting-started.md#source-consumption). General strategy negotiation beyond the documented synchronous agreements is not supported.
+Application assembly follows the selected backend’s setup guide. Development environments may automate the declared hooks. See [Core package format](../../getting-started.md#package-format) for compiled packages and source checkouts. General strategy negotiation beyond the documented synchronous agreements is not supported.
 
 
 ## Required view modules

@@ -4,7 +4,7 @@ A UI language for building everyday business interfaces without making every dev
 
 Uninterface aims to let software developers and development agents express data, actions, rules, and structure through semantic Vue components. Shared controls manage UI behavior; presentation backends and strategies turn that meaning into a coherent interface. The goal is a professional-looking, understandable, structured, accessible, and working result without routine CSS tuning in business code.
 
-The package exports Vue/TypeScript source. The [API reference](docs/api/README.md) defines its exports and their limits.
+The [API reference](docs/api/README.md) defines the public exports and their limits.
 
 ## Why Uninterface exists
 
@@ -72,10 +72,10 @@ Use [operation progress](docs/guides/progress.md) for measured or unknown work w
 
 ## Test Core from a checkout
 
-Run `npm test` with Node.js 24 and npm. The checks run directly from this
-repository and cover locale fallback, raw choice values, and the contents of the
-npm tarball. GitHub Actions runs the same command on pushes and pull requests.
-Rendered component and application checks require a selected backend.
+Use Node.js 24 and npm. Run `npm ci` and `npm test` to build and verify the
+compiled package. GitHub Actions runs the same checks on pushes and pull
+requests. Rendered component and application checks require a selected backend.
+[Build and inspect the package](docs/architecture/package-build.md)
 
 ## License
 

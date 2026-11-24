@@ -10,7 +10,7 @@ import {
   rmSync,
 } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { join, posix } from 'node:path'
 import { test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { checkboxValue, choiceKeys } from '../src/controls/choices.ts'
@@ -44,9 +44,14 @@ test('npm packs Core metadata, public export targets, and documentation', () => 
   const root = new URL('../', import.meta.url)
   const readJson = (path) =>
     JSON.parse(readFileSync(new URL(path, root), 'utf8'))
-  const manifest = readJson('package.json')
-  const capabilities = readJson('capabilities.json')
+  const source = readJson('package.json')
+  const manifest = readJson('dist/package/package.json')
+  const capabilities = readJson('dist/package/capabilities.json')
+  assert.equal(manifest.name, source.name)
   assert.equal(capabilities.name, manifest.name)
+  assert.deepEqual(Object.keys(manifest.exports), Object.keys(source.exports))
+  assert.match(manifest.exports['.'].import, /^\.\/esm\/.+\.js$/)
+  assert.match(manifest.exports['./setup'].types, /^\.\/types\/.+\.d\.ts$/)
 
   const directory = mkdtempSync(join(tmpdir(), 'uninterface-core-pack-'))
   try {
@@ -58,6 +63,7 @@ test('npm packs Core metadata, public export targets, and documentation', () => 
         [
           process.env.npm_execpath,
           'pack',
+          './dist/package',
           '--offline',
           '--ignore-scripts',
           '--json',
@@ -90,13 +96,30 @@ test('npm packs Core metadata, public export targets, and documentation', () => 
       'capabilities.json',
       'package.json',
     ]
-    for (const path of [...rootFiles, 'docs/getting-started.md'])
+    for (const path of [...rootFiles, 'style.css', 'docs/getting-started.md'])
       assert.ok(files.has(path), `Missing package file ${path}`)
     for (const path of files)
       assert.ok(
-        rootFiles.includes(path) || /^(docs|src)\//.test(path),
+        [...rootFiles, 'style.css'].includes(path) ||
+          /^(docs|build|esm|types)\//.test(path),
         `Unexpected package file ${path}`,
       )
+
+    const icon = readFileSync(
+      new URL('dist/package/esm/components/UiIcon.vue.js', root),
+      'utf8',
+    )
+    const style = icon.match(/^import "(.*\.css)";/m)?.[1]
+    assert.ok(style, 'UiIcon keeps its compiled scoped stylesheet import')
+    const stylePath = posix.join('esm/components', style)
+    assert.ok(files.has(stylePath), 'UiIcon stylesheet is packed')
+
+    const messages = readFileSync(
+      new URL('dist/package/esm/i18n/packs.js', root),
+      'utf8',
+    )
+    assert.match(messages, /import\(["']\.\/locales\/common\/ar\.js["']\)/)
+    assert.doesNotMatch(messages, /__vitePreload/)
 
     // The release workflow stages the exact tarball verified here.
     if (process.env.UNINTERFACE_PACK_FILE)
