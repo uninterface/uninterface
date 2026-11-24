@@ -1,6 +1,9 @@
 name: Publish Core to npm
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       stage:
@@ -22,6 +25,19 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - name: Verify release tag matches package version
+        if: ${{ github.event_name == 'push' }}
+        shell: bash
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ || "$GITHUB_REF_NAME" == v0.0.0 ]]; then
+            printf '::error::Expected a vMAJOR.MINOR.PATCH release tag with a nonzero version\n'
+            exit 1
+          fi
+          version=$(node -p 'require("./package.json").version')
+          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
+            printf '::error::Release tag %s does not match package.json version %s\n' "$GITHUB_REF_NAME" "$version"
+            exit 1
+          fi
       - run: npm ci
       - name: Test and pack Core
         env:
@@ -40,8 +56,8 @@ jobs:
           path: ${{ runner.temp }}/uninterface-pack/
           if-no-files-found: error
 
-  stage:
-    if: ${{ inputs.stage }}
+  release:
+    if: ${{ github.event_name == 'push' || inputs.stage }}
     needs: package
     runs-on: ubuntu-latest
     environment: npm
@@ -58,8 +74,13 @@ jobs:
       - name: Verify the release tarball
         working-directory: ${{ runner.temp }}/uninterface-pack
         run: sha512sum --check SHA512SUMS
-      - name: Install npm with staged publishing support
+      - name: Install npm with trusted publishing support
         run: npm install --global npm@11.19.1 --ignore-scripts --no-audit --no-fund --registry https://registry.npmjs.org/
+      - name: Publish the verified tarball to npm
+        if: ${{ github.event_name == 'push' }}
+        working-directory: ${{ runner.temp }}/uninterface-pack
+        run: npm publish ./uninterface.tgz --ignore-scripts --access public --tag alpha --registry https://registry.npmjs.org/
       - name: Stage the verified tarball on npm
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         working-directory: ${{ runner.temp }}/uninterface-pack
         run: npm stage publish ./uninterface.tgz --access public --tag alpha --registry https://registry.npmjs.org/
