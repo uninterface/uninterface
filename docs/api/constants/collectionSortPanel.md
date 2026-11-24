@@ -1,0 +1,15 @@
+# collectionSortPanel
+
+Import from `@uninterface/uninterface`. Built-in UiCollectionPanelAdaptation<UiCollectionSortPanelContext> with diagnostic name `sort-panel`.
+
+For multiple-mode bindings, renders unnumbered rows with a fixed business field label, an ascending/descending icon button, and direct Move earlier, Move later and Remove buttons. The direction icon represents the current state; activation reverses it. Accessible names/native hints include the field and current direction or action. Physical row order expresses priority. Add sort offers unused allowed fields; replacing a listed field means removing it and adding the desired field.
+
+Multiple mode exposes both movement buttons, disabling moves past the ends. Single mode renders [collectionSortSelect](collectionSortSelect.md): inline field/No sort selection with direction and trash icons, without a rule list. A move keeps focus within the moved row on an enabled movement action; removal returns focus to Add sort. Buttons use existing backend-native presentation and semantic icons; no gripper or drag interaction is claimed. Completed edits apply live, without an Apply button.
+
+The header renders it by default when sortBinding is supplied without a nonempty sort slot. Replace it through sortPanel; custom hosts can invoke view({ binding }). It is a directly imported presentation object, not a standard UiXxxx component or backend registry entry. Commands are localized by core; business field names come from the binding.
+
+The host owns expansion and active indications; the source owns execution before pagination. Verify keyboard edits, no duplicate fields, priority, external query synchronization, disabled/disposed state, single mode and no source reads from mounting. See [panel guide](../../guides/collection-panels.md).
+
+The field name is displayed by a read-only UiTextInput inside UiInputFrame. The direction button occupies the frame’s trailing slot and explicitly allows activation under readonly; the row’s disabled state still blocks it. The display field follows localized business labels without changing the sort query. Native input spacing replaces the former card insets. Move up/down form an adjoining group without an extra inter-button gap before the field input; Remove stays after it and uses the semantic danger color. Source, visual and keyboard order agree. Rows use compact backend spacing. Shared columns align the field inputs and Add sort; alignment follows actual button widths, including native size changes. Empty multiple-sort panels start Add sort at the field column without reserving movement space. Native button sizes and focus treatments are retained; no joined-button or toolbar keyboard contract is introduced.
+
+The built-in uses a private native-backed sort layout with shared CSS grid columns and row subgrids. Core still owns the rule editor, disclosure-independent state and query interactions. Backends own compact gap values and layout markup; modern CSS subgrid support is required. No placeholder controls, measured offsets, new public layout API or CSS reordering are introduced.

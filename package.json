@@ -1,0 +1,39 @@
+{
+  "name": "@uninterface/uninterface",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./capabilities.json": "./capabilities.json",
+    "./backend": "./src/backend/index.ts",
+    "./responsive": "./src/environment/index.ts",
+    "./theme": "./src/presentation/index.ts",
+    "./style.css": "./src/style.css",
+    "./setup": "./src/setup/index.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./icons": "./src/icons/index.ts",
+    "./vite": {
+      "types": "./src/build/index.d.mts",
+      "import": "./src/build/index.mjs"
+    },
+    "./vite/client": "./src/build/client.d.ts",
+    "./vue-router": "./src/navigation/vue-router-index.ts"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.43",
+    "vue-router": "^4.6.4",
+    "vite": "^7.3.7"
+  },
+  "peerDependenciesMeta": {
+    "vue-router": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
+  }
+}

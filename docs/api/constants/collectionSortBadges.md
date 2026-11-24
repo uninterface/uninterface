@@ -1,0 +1,7 @@
+# collectionSortBadges
+
+Import from `@uninterface/uninterface`. Frozen `UiCollectionPanelAdaptation<UiCollectionSortPanelContext>` named `sort-badges`.
+
+Pass as UiCollectionHeader's `sortPanel`, or invoke `.view({ binding })` in a custom host. Renders a wrapping list of field/direction badges with named removal crosses and Add sort. Choosing an allowed unused field opens direction choices; only selecting a direction appends a rule. Source order determines priority. Single mode allows one rule. Disabled state is guarded at invocation. Multiple active sort badges provide focusable bodies: drag to an insertion marker, or press Alt+Shift+Left/Right to move one position in the visual inline direction (reversed in RTL). A valid drop writes once; Escape/outside drop cancels. Moving preserves direction and focus; boundary shortcuts are no-ops. Ordinary clicks remain inert. Change direction by removing and adding the rule. Touch starts horizontally to reorder and retains vertical scrolling. Table priority menus are separate and unchanged.
+
+Core borrows the source-backed binding and owns no competing query. Backends own native badge, focus/gesture feedback and removal rendering. See [collection badges](../../guides/collection-badges.md) for ownership, responsive selection and observable verification. Verify one request per complete addition/removal/reorder, guards, order, independent imports, inert ordinary clicks, focus, wrapping and RTL.
