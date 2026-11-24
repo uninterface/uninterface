@@ -2,7 +2,19 @@
   "name": "@uninterface/uninterface",
   "version": "0.0.1",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uninterface/uninterface.git"
+  },
   "type": "module",
+  "files": [
+    "capabilities.json",
+    "docs/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "node --test --test-isolation=none tests/core.test.mjs"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./capabilities.json": "./capabilities.json",

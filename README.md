@@ -70,6 +70,13 @@ Use [operation progress](docs/guides/progress.md) for measured or unknown work w
 
 [Editable collection coordination](docs/guides/collection-editors.md) composes existing child-value controls with local views, editing actions and focus recovery.
 
+## Test Core from a checkout
+
+Run `npm test` with Node.js 24 and npm. The checks run directly from this
+repository and cover locale fallback, raw choice values, and the contents of the
+npm tarball. GitHub Actions runs the same command on pushes and pull requests.
+Rendered component and application checks require a selected backend.
+
 ## License
 
 Uninterface source is available under the [MIT License](LICENSE).

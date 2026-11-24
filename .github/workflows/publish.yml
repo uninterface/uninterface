@@ -1,0 +1,63 @@
+name: Publish Core to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Stage the verified package on npm for maintainer approval
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Test and pack Core
+        env:
+          UNINTERFACE_PACK_FILE: ${{ runner.temp }}/uninterface-pack/uninterface.tgz
+        run: |
+          mkdir -p "$(dirname "$UNINTERFACE_PACK_FILE")"
+          npm test
+      - name: Rehearse publication and record integrity
+        working-directory: ${{ runner.temp }}/uninterface-pack
+        run: |
+          npm publish ./uninterface.tgz --dry-run --offline --ignore-scripts --access public --tag alpha
+          sha512sum uninterface.tgz > SHA512SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uninterface-npm-package
+          path: ${{ runner.temp }}/uninterface-pack/
+          if-no-files-found: error
+
+  stage:
+    if: ${{ inputs.stage }}
+    needs: package
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          name: uninterface-npm-package
+          path: ${{ runner.temp }}/uninterface-pack
+      - name: Verify the release tarball
+        working-directory: ${{ runner.temp }}/uninterface-pack
+        run: sha512sum --check SHA512SUMS
+      - name: Install npm with staged publishing support
+        run: npm install --global npm@11.19.1 --ignore-scripts --no-audit --no-fund --registry https://registry.npmjs.org/
+      - name: Stage the verified tarball on npm
+        working-directory: ${{ runner.temp }}/uninterface-pack
+        run: npm stage publish ./uninterface.tgz --access public --tag alpha --registry https://registry.npmjs.org/
