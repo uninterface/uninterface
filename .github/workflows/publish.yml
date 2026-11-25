@@ -17,6 +17,8 @@ permissions:
 jobs:
   package:
     runs-on: ubuntu-latest
+    outputs:
+      dist-tag: ${{ steps.version.outputs.dist-tag }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -25,19 +27,27 @@ jobs:
         with:
           node-version: '24'
           cache: npm
-      - name: Verify release tag matches package version
-        if: ${{ github.event_name == 'push' }}
+      - name: Verify release version and select npm dist-tag
+        id: version
         shell: bash
         run: |
-          if [[ ! "$GITHUB_REF_NAME" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ || "$GITHUB_REF_NAME" == v0.0.0 ]]; then
-            printf '::error::Expected a vMAJOR.MINOR.PATCH release tag with a nonzero version\n'
+          version=$(node -p 'require("./package.json").version')
+          number='(0|[1-9][0-9]*)'
+          identifier="($number|[0-9]*[A-Za-z-][0-9A-Za-z-]*)"
+          pattern="^$number\\.$number\\.$number(-$identifier(\\.$identifier)*)?$"
+          if [[ ! "$version" =~ $pattern || "$version" == 0.0.0 ]]; then
+            printf '::error::Invalid package.json release version %s\n' "$version"
             exit 1
           fi
-          version=$(node -p 'require("./package.json").version')
-          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
+          if [[ "$GITHUB_EVENT_NAME" == push && "$GITHUB_REF_NAME" != "v$version" ]]; then
             printf '::error::Release tag %s does not match package.json version %s\n' "$GITHUB_REF_NAME" "$version"
             exit 1
           fi
+          dist_tag=latest
+          if [[ "$version" == *-* ]]; then
+            dist_tag=pre-release
+          fi
+          printf 'dist-tag=%s\n' "$dist_tag" >> "$GITHUB_OUTPUT"
       - run: npm ci
       - name: Test and pack Core
         env:
@@ -46,9 +56,11 @@ jobs:
           mkdir -p "$(dirname "$UNINTERFACE_PACK_FILE")"
           npm test
       - name: Rehearse publication and record integrity
+        env:
+          NPM_DIST_TAG: ${{ steps.version.outputs.dist-tag }}
         working-directory: ${{ runner.temp }}/uninterface-pack
         run: |
-          npm publish ./uninterface.tgz --dry-run --offline --ignore-scripts --access public --tag alpha
+          npm publish ./uninterface.tgz --dry-run --offline --ignore-scripts --access public --tag "$NPM_DIST_TAG"
           sha512sum uninterface.tgz > SHA512SUMS
       - uses: actions/upload-artifact@v4
         with:
@@ -59,6 +71,8 @@ jobs:
   release:
     if: ${{ github.event_name == 'push' || inputs.stage }}
     needs: package
+    env:
+      NPM_DIST_TAG: ${{ needs.package.outputs.dist-tag }}
     runs-on: ubuntu-latest
     environment: npm
     permissions:
@@ -79,8 +93,8 @@ jobs:
       - name: Publish the verified tarball to npm
         if: ${{ github.event_name == 'push' }}
         working-directory: ${{ runner.temp }}/uninterface-pack
-        run: npm publish ./uninterface.tgz --ignore-scripts --access public --tag alpha --registry https://registry.npmjs.org/
+        run: npm publish ./uninterface.tgz --ignore-scripts --access public --tag "$NPM_DIST_TAG" --registry https://registry.npmjs.org/
       - name: Stage the verified tarball on npm
         if: ${{ github.event_name == 'workflow_dispatch' }}
         working-directory: ${{ runner.temp }}/uninterface-pack
-        run: npm stage publish ./uninterface.tgz --access public --tag alpha --registry https://registry.npmjs.org/
+        run: npm stage publish ./uninterface.tgz --access public --tag "$NPM_DIST_TAG" --registry https://registry.npmjs.org/
