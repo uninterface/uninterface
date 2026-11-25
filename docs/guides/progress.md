@@ -25,17 +25,9 @@ The bar has no automatic live region and never moves focus. A surrounding compos
 
 [`UiUploadProgress`](../api/components/UiUploadProgress.md) and its use inside `UiUploadRegion` compose the same backend bar view. Keep using their existing upload bindings; ordinary consumers do not reconstruct progress internals. The upload owner retains file identity, cancellation, retry, errors, task lifetime and announcement policy. Unknown and zero totals during activity use an indeterminate bar. Failure replaces the bar with feedback/recovery; successful completion hides its upload presentation. `progress=false` in a region omits activity without omitting required failure feedback/actions.
 
-## Backend adaptations
+## Presentation
 
-| Backend | Mapping and limits |
-| --- | --- |
-| Plain | Own reference track/fill with one semantic progress root. Unknown mode moves a segment; reduced motion retains a static partial segment. Theme roles set the fill. |
-| Bootstrap | Native `.progress`/`.progress-bar`, native default tokens and semantic theme roles (primary by default). Unknown mode adds a moving segment because the native structure has no indeterminate mode; reduced motion fixes that segment in place. |
-| Element Plus | Native line `ElProgress`. Known percentage text is localized; ARIA retains original value/max. The native unknown segment width is private paint, never a measurement. Unknown mode suppresses percentage text. |
-| Nuxt UI | Native horizontal `UProgress` for paint. A semantic host exposes the original range/name, with native visual markup hidden from assistive technology to avoid an unnamed duplicate. Adapter CSS preserves exact fill because the native component rounds paint to integer percentages. |
-| Vuetify | Native `VProgressLinear` receives original value/max and native indeterminate mode. No clickable or completion behavior is enabled. |
-
-Each backend fills the offered inline allocation, supports logical direction, and respects reduced motion. Appearance and thickness are implementation-owned. The `color` prop accepts supported theme roles (`primary`, `success`, `danger`, `warning`, `info`, `secondary` and declared extensions), defaulting to `primary`. It does not encode success/failure automatically. No progress-specific strategy is required for ordinary use. All five expose `progress.bar.v1`; capability declarations alone are not browser or assistive-technology acceptance.
+The bar fills the offered inline allocation, follows the writing direction and respects the user's reduced-motion preference. The backend owns thickness, motion and visual treatment. The `color` prop accepts supported theme roles and defaults to `primary`. The producer supplies explicit success or failure feedback when needed. No progress-specific strategy is required. Consult your backend's progress guide for its native mapping and supported theme roles.
 
 ## Observable acceptance
 

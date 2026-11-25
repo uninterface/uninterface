@@ -26,10 +26,12 @@ The API reference defines usable exports and local limitations. Conceptual contr
 | Apply scoped presentation preferences | [Strategies](guides/strategies.md), [common strategy catalog](strategies/README.md) |
 | Style keyboard focus on author-supplied elements | [Reusable focus presentation](guides/focus-presentation.md) |
 | Focus static content after navigation without an enclosing outline | [Navigation focus destinations](api/styling-classes/uninterface-navigation-focus-target.md) |
+| Coordinate a hamburger trigger, modal drawer and vertical menu | [Composed drawer navigation](guides/drawer-navigation.md) |
 | Rely on conventional input look and feel | [Input-styled controls](guides/controls.md#input-styled-controls) |
 | Manage editor availability and focus | [Common control API](guides/controls.md) |
 | Connect actions to control state | [Control bindings](guides/control-bindings.md) |
 | Validate fields and forms, including remote checks | [Asynchronous validation](guides/validation.md) |
+| Show measured or indeterminate progress, including uploads | [Operation progress](guides/progress.md) |
 | Edit numbers and monetary amounts | [Numbers and money](guides/number-and-money.md) |
 | Understand dynamic stacking and its implementation limits | [Dynamic z-order](guides/dynamic-z-order.md) |
 | Arrange content and choose scrolling behavior | [Application layouts](guides/application-layouts.md) |
@@ -62,6 +64,8 @@ Start with the [presentation selection reference](guides/collection-presentation
 | Concern | Reference |
 | --- | --- |
 | Business ownership and composition | [Collections](guides/collections.md) |
+| Connect editable child fields to local views, actions and focus recovery | [Collection editor coordination](guides/collection-editors.md) |
+| Summarize records using lazy access or business-provided data | [Collection summaries](guides/collection-summaries.md) |
 | Filter definitions and sessions | [Collection filters](guides/collection-filters.md) |
 | Search, choice and range controls | [Built-in filters](guides/filter-patterns.md) |
 | Individual editor views | [Filter adaptations](guides/filter-adaptations.md) |
@@ -76,12 +80,3 @@ Start with the [presentation selection reference](guides/collection-presentation
 ## Documentation ownership
 
 Core documentation defines backend-independent semantics, responsibilities, fallback rules and observable acceptance. Native component mappings, concrete theme values, supported native subsets, integration workarounds and backend-specific limitations belong in the corresponding backend package’s documentation. Cross-backend inventories belong in workspace documentation. External design/specification citations may retain their attribution when supporting a general principle; they do not describe installed-adapter behavior. Consumers should consult the selected backend’s presentation, capability and customization documentation alongside the shared contract.
-
-- [Collection summaries](guides/collection-summaries.md): lazy record access, business-provided data and table/card presentation.
-
-- [Composed drawer navigation](guides/drawer-navigation.md): coordinate a hamburger trigger, modal drawer and vertical menu through a reusable control.
-
-- [Operation progress](guides/progress.md): measured and indeterminate bars and upload integration.
-
-
-[Collection editor coordination](guides/collection-editors.md) connects editable child values to local views, immediate editing actions and view-local focus recovery.

@@ -31,7 +31,7 @@ Core validates semantic inputs, validates explicit theme roles and resolves the 
 
 [`UiUploadProgress`](UiUploadProgress.md) composes the same backend bar implementation while retaining file identity, action/failure presentation and announcement ownership. It treats active unknown/zero totals as indeterminate, and removes the bar on failure, cancellation or completion according to its existing workflow.
 
-See the [progress guide](../../guides/progress.md) for ownership, examples and backend adaptations.
+See the [progress guide](../../guides/progress.md) for ownership, examples and verification.
 
 ## Observable verification
 

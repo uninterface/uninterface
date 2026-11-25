@@ -10,7 +10,7 @@ These instructions assume an existing Vue application. See the [API reference](a
 
 ## Package format
 
-Core's compiled package provides ESM and TypeScript declarations. When using a Core source checkout, use a package environment that resolves its Vue/TypeScript source alongside a matching backend and any declared `workspace:*` dependencies. Follow the selected backend's setup guide for its package resolution and native configuration.
+Core's compiled package provides ESM and TypeScript declarations. To use a local Core checkout, follow the selected backend's setup guide and substitute the tarball path for the Core package argument in its install command. Build the tarball from the Core checkout using the [package build instructions](architecture/package-build.md).
 
 ## Resolve core and select a backend
 
