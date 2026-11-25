@@ -66,6 +66,6 @@ These are implementation statements, not completed browser acceptance. Selectabl
 4. Focus the first, middle and last segment, including an initially unselected option; verify visible contained focus, arrow-key navigation, scrolling to the focused option and unchanged surface bounds. Repeat in forced colors.
 5. Repeat at narrow widths, with wrapping, RTL, long translations, text zoom and supported application theme customization. Do not infer painted geometry from class assertions or DOM rectangles supplied by a DOM simulator.
 
-The shared `tests/field-alignment.spec.ts` exercises geometry in a real browser; DOM checks separately verify rendered structure and naming. Record backend, browser, theme and scenarios actually executed. A blocked browser run leaves geometry acceptance pending.
+Use browser measurements for geometry. Verify rendered structure, label association and feedback naming separately.
 
 Individual checkbox, radio-button and switch labels follow the [checkable-control rule](design-principles.md#checkable-control-labels): always beside for visible labels, including on narrow screens. They are not ordinary form-label columns. Group headings retain the alignment rules above.

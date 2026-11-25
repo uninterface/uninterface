@@ -49,7 +49,7 @@ Backends implement shared allocation and alignment through compatible column fac
 
 Native column-reorder and table SSR limitations remain in some adapters. Consult backend table documentation before relying on editor identity during reorder or SSR/hydration acceptance. Sizing/alignment updates are covered separately; DOM checks do not establish browser geometry or server-rendering conformance.
 
-Acceptance checks: measure header and cell widths, resize the parent, drag and keyboard-clamp both minima, inspect RTL behavior and physical alignment, verify explicit overflow, retain unfinished input, and confirm no data reload. Allocation unit tests and DOM tests exercise every adapter; DOM geometry stubs cannot establish browser layout. `tests/table-sizing.spec.ts` provides real-browser geometry and pointer checks. The collection follow-up browser suite also checks the sorted Customer header floor and keyboard minimum across adapters. These targeted checks do not establish general touch or assistive-technology acceptance.
+Acceptance checks: measure header and cell widths, resize the parent, drag and keyboard-clamp both minima, inspect RTL behavior and physical alignment, verify explicit overflow, retain unfinished input, and confirm no data reload. Use a browser for geometry and input actions. Include a sorted header whose caption, sort priority and resize handle all compete for space.
 
 ## Content-sized columns
 

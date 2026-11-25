@@ -81,7 +81,7 @@ UiLayoutPresentation additionally accepts `peerSpacingLevels?: Partial<Record<-1
 
 Core UiLayout resolves uiLayoutDensityQuery at the existing `layout` node and sends the optional agreed density in UiLayoutViewBinding; UiFlowLayout delegates to that same node. UiGridLayout resolves at `grid-layout` and consumes the same backend descriptors. Backends select the matching nonzero descriptor or the default descriptor, replacing previous classes/gaps reactively. Never scale control sizes or inherit a CSS density variable across query barriers. `spacing: 'none'` always suppresses peer gap/classes regardless of density. Region allocation helpers do not create extra density-query nodes. Scope, conflict and omission must restore the backend's original default.
 
-Verify reactive replacement, keyed input/focus retention, default restoration, target/depth/stopAt and query barriers, and zero gaps on region allocations. The shared `tests/layout-density-dom.test.mjs` covers all three layouts against each backend; actual geometry remains a browser check.
+Verify reactive replacement, keyed input and focus retention, default restoration, target/depth/stopAt and query barriers, and zero gaps on region allocations. Use a browser to measure the resulting layout.
 
 
 Backend popup presentation follows the [native arrow principle](../../guides/design-principles.md#native-arrows-on-anchored-surfaces), including native popovers embedded inside editors. Audit the matching native control before interpreting an arrow flag on a lower-level primitive; a native arrowless submenu is not a missing-arrow defect.
