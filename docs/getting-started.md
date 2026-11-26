@@ -4,7 +4,7 @@ Use `@uninterface/uninterface` for business-facing components and controls, toge
 
 ## Requirements
 
-Use a Vue 3 project compatible with the current `^3.5.43` peer dependency and a bundler that processes Vue single-file components, such as Vite with `@vitejs/plugin-vue`. TypeScript projects should use Vue-aware type checking, such as `vue-tsc`.
+Use Node.js 24 or 26 and a Vue 3 project compatible with the current `^3.5.18` peer dependency. Use a bundler that processes Vue single-file components, such as Vite with `@vitejs/plugin-vue`. TypeScript projects should use Vue-aware type checking, such as `vue-tsc`.
 
 These instructions assume an existing Vue application. See the [API reference](api/README.md) for supported exports and limitations.
 

@@ -93,7 +93,7 @@ Default breadcrumbs use submenu labels as text-only ancestors and the destinatio
 
 ## Optional Vue Router integration
 
-Install Vue Router (^4.6.4) and import only the optional entry point:
+Install Vue Router `^4.5.0 || ^5.0.0` for the optional driver entry point:
 
 ```ts
 import { createVueRouterNavigationDriver } from '@uninterface/uninterface/vue-router'

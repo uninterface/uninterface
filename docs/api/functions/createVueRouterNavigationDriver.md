@@ -1,6 +1,6 @@
 # createVueRouterNavigationDriver
 
-Import from `@uninterface/uninterface/vue-router`; install the optional `vue-router` peer (^4.6.4). Ordinary core imports do not import Vue Router.
+Import from `@uninterface/uninterface/vue-router` and install Vue Router in the `^4.5.0 || ^5.0.0` peer range. The peer is optional for applications that use a different navigation driver.
 
 ```ts
 createVueRouterNavigationDriver(router: Router, options?: VueRouterNavigationOptions): UiNavigationDriver

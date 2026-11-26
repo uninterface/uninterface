@@ -1,6 +1,6 @@
 # createUiIconLoader
 
-Import from `@uninterface/uninterface/vite`. Optional build-time integration for applications using Vite 7 and Vue 3; it is separate from the browser runtime and backend integration.
+Import from `@uninterface/uninterface/vite`. This optional build-time integration uses the Vite `^7.3.7 || ~8.1.6 || ~8.2.4 || ^8.3.3` peer and the application's Vue dependency.
 
 ```ts
 function createUiIconLoader(): import('vite').Plugin
