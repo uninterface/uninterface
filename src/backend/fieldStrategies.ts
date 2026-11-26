@@ -4,6 +4,7 @@ import {
   provide,
   type ComputedRef,
   type InjectionKey,
+  type Ref,
 } from 'vue'
 import { useUiStrategy } from '../strategy/context'
 import {
@@ -15,6 +16,7 @@ import {
 } from '../strategy/common'
 import type { UiFieldViewBinding } from './index'
 import { useModalValidationTooltipFallback } from '../stacking/overlays'
+import { useFieldFeedbackTiming } from './fieldFeedback'
 
 type LabelPosition =
   | 'show'
@@ -60,6 +62,7 @@ export function useUiFieldStrategies(
     checkableModes?: readonly ('flushed' | 'control-aligned' | 'separated')[]
     failureModes?: readonly [FailureMode, ...FailureMode[]]
     defaultFailure?: () => FailureMode | 'none'
+    feedbackRoot?: Ref<unknown>
   } = {},
 ) {
   // Agree on requested intent before applying native support or fallback.
@@ -247,8 +250,22 @@ export function useUiFieldStrategies(
       describedBy: descriptions,
     } as const
   })
-  provide(key, policy)
-  return policy
+  const feedback =
+    defaults.feedbackRoot &&
+    useFieldFeedbackTiming(
+      defaults.feedbackRoot,
+      () => policy.value.issue,
+      () => policy.value.showHelp,
+    )
+  const presentation = computed(() => ({
+    ...policy.value,
+    inlineFeedbackDeferred: feedback?.deferred.value ?? false,
+    showHelp: feedback?.deferred.value
+      ? feedback.previousHelp.value
+      : policy.value.showHelp,
+  }))
+  provide(key, presentation)
+  return presentation
 }
 const key: InjectionKey<
   ComputedRef<ReturnType<typeof useUiFieldStrategies>['value']>

@@ -68,6 +68,7 @@ useUiFieldStrategies(
     checkableModes?: readonly ('flushed' | 'control-aligned' | 'separated')[]
     failureModes?: readonly [FailureMode, ...FailureMode[]]
     defaultFailure?: () => FailureMode | 'none'
+    feedbackRoot?: Ref<unknown>
   },
 )
 // LabelPlacement = 'above' | 'beside' | 'floating'
@@ -79,10 +80,19 @@ useUiFieldStrategies(
 The computed policy resolves presentation before rendering. Its rendering
 members are `labels`, `labelAlignment`, `checkableMode`,
 `checkableLabelAlignment`, `requiredAnnotations`, `markerPosition`, `marker`,
-`help`, `failure`, `showFailure`, `issue`, `showHelp` and `describedBy`.
+`help`, `failure`, `showFailure`, `issue`, `showHelp`, `describedBy` and
+`inlineFeedbackDeferred`.
 `active`, `labelsSpecified`, `requestedLabels`, `annotationsSpecified`,
 `failureSpecified` and `requestedFailure` are diagnostic intent metadata;
 renderers must not use them to repeat default or fallback decisions.
+
+Supply the field's root element or native Vue component ref as `feedbackRoot`
+to keep newly added feedback from moving a pressed target outside the field.
+While `inlineFeedbackDeferred` is true, `showHelp` preserves the previous
+layout. Make the new `issue` available to assistive technology through its
+existing description ID while keeping it out of the layout. Use the backend's
+normal feedback treatment once the press and click complete. Validation state,
+description associations and native form submission continue independently.
 
 `labels` always contains a concrete treatment, including when the query is
 unanswered. `defaultLabels` reports reactive ordinary native placement (above

@@ -137,6 +137,8 @@ Verify that changing unfinished input invalidates previous success immediately, 
 
 Ordinary saving needs only `UiForm` and `form.bindings.submitButton`. Supply the save operation once to the form. There is no need to validate separately or maintain a second busy flag.
 
+Clicking Save directly from an edited field still submits for validation when leaving the field reveals a new inline error. The field's invalid state and accessible description update when validation finishes. The inline message can enter the layout after the click so the pressed button stays in place.
+
 Submission locks editing and reset before validation, awaits its checks, and passes the validated snapshot to save without reparsing or rerunning rules. Submit-button loading covers validation and persistence. Duplicate submits are blocked through both stages. Direct `form.validate()` calls during submission await that submission's pass.
 
 Disposing the form invalidates pending checks and prevents a save that has not yet started. It does not undo a dispatched operation. Reset outside submission invalidates pending checks and restores baselines. Business code owns lifetime and must not bypass submission locks by directly resetting or accepting individual fields.
