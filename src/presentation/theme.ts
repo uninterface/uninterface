@@ -57,7 +57,7 @@ function defineThemeColors<
   }>
 }
 
-/** Shared by runtime checks and the workspace manifest scanner. */
+/** Validate that declared color capabilities match the theme's definitions and baseline support. */
 export function validateThemeColorSupport(presentation: UiBackendDescriptor) {
   const definitions = defineThemeColors(presentation.themeColors ?? {})
   const capabilities = presentation.capabilities
