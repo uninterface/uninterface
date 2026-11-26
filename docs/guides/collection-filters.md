@@ -6,7 +6,7 @@ A filter definition describes business criteria independently of where its edito
 
 The business supplies a stable key, localized label, typed criterion, pure query read/write functions, equality, active semantics, summary, optional clear/removal operations and commit policy. Built-in search/choice/range control factories supply the editor factory; custom patterns may supply their own. Core owns live scheduling, stale-result guards, explicit commits, lifetime and presentation context. Existing list controls own reads, accepted results, selection, pagination and source errors. Backends continue to render the actual Uninterface inputs, fields, buttons and column popovers. There is no new native filter engine or mandatory schema of text/select/range types.
 
-Use one business owner for each filter binding; dispose its control when that owner ends. It can outlive mounted views. In the demo, `useOrderFilters` owns Status, Amount and Order search inside OrderBrowser. Ordinary consumers of OrderBrowser still supply business service operations, not reconstructed editor controls. [UiCollectionHeader](collection-header.md) now arranges external query views and supplies row/panel context. [Badge/Add-filter presentation](collection-badges.md) is available through explicit binding enumeration; an implicit declaration registry is not provided.
+Use one business owner for each filter binding; dispose its control when that owner ends. It can outlive mounted views. [UiCollectionHeader](collection-header.md) now arranges external query views and supplies row/panel context. [Badge/Add-filter presentation](collection-badges.md) is available through explicit binding enumeration; an implicit declaration registry is not provided.
 
 ```ts
 import { defineComponent, h } from 'vue'
@@ -112,7 +112,7 @@ Small ready flat column or badge popover lists (1–6 options, all selected keys
 
 Commit policy is unchanged by adaptation. Status uses live multiple membership: both choices are unrestricted, neither matches no rows. A single-value choice uses radios/single select and is never substituted for a multiple restriction. Explicit choice definitions receive an Apply action from the shared choice surface; custom replacement views must provide their own operable completion route. Accessible identity remains present even when a column provides the visible heading.
 
-The Orders demo uses UiCollectionHeader for search, external sorting/filtering and separate Refresh/New order actions. Its optional reset binding clears search, filter restrictions and sorting together and discards unfinished drafts. The header renders a reset icon outside disclosures; it is disabled when nothing is applied or dirty. A draft-only reset does not query. Ordered sorting is now edited as a list of fields/directions with priority actions, synchronized with table sorting rather than reduced to a single preset. See [collection header](collection-header.md).
+Compose UiCollectionHeader with a search slot, filter and sort bindings, and actions such as Refresh or New order. If the application offers a shared reset, use the reset binding to clear search, filters and sorting together and discard unfinished drafts. Verify that reset is disabled when nothing is applied or dirty and that clearing drafts alone issues no query. See [collection header](collection-header.md) and [sort priority editing](collection-sorting.md#external-sorting-presentations).
 
 
 ## Built-in patterns and presentation selection

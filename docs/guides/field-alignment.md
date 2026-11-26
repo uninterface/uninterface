@@ -44,7 +44,7 @@ The layout owns peer placement. Backends own the meaningful baseline exported by
 
 Business compositions propagate that reference through their own roots using ordinary CSS baseline rules. Vue boundaries do not require special registration. Arbitrary opaque/multi-root content and text-free items use native export/synthesis; UiLayout does not inspect their interiors to select a business target. An above-labelled field beside a button aligns the button with the label row, not the editor below it. Coordinating editor rows independently of label arrangement remains a separate concern.
 
-The Shared input frame demo's keyword search offers Text baseline/Center/Start and wrapping controls, with a leading icon, framed editor, integrated submit action, external reset action and owning form. Collections uses UiCollectionHeader editor-band alignment and an independent reset icon; the plain UiLayout example above remains a baseline-alignment example. Verify the text rows at different control sizes, with feedback, pending state, RTL, narrow wrapping and empty/placeholder/typed values. Native baseline-reference measurements are needed: equal box centers or jsdom geometry cannot prove this behavior. Browser visual acceptance remains separate from source/DOM checks.
+To compare alignment, put a UiInputFrame with a leading icon, text input and integrated submit action beside an independent reset button. Compare baseline, center and start with and without wrapping. Verify the first text rows at different sizes, with pending state and feedback, RTL, and empty, placeholder and typed values. Measure text baseline references in a browser. Use [UiCollectionHeader](collection-header.md) for coordinated editor bands when label rows vary.
 
 ## Implementation and customization
 
@@ -54,9 +54,9 @@ For scrollable segments, paint focus within the scrollable surface or provide cl
 
 ## Supported examples and current implementation
 
-The demo's Interface language and Appearance fields are the introductory mixed-editor example. UiNavbar field peers use block-start alignment. Backends coordinate borders, height, label baselines and contained focus without surplus outer scroll insets. Integrated-label support and native adjustments belong in backend documentation; requesting beside does not establish native support.
+UiNavbar field peers use block-start alignment. Backends coordinate borders, height, label baselines and contained focus without surplus outer scroll insets. Integrated-label support and native adjustments belong in backend documentation; requesting beside does not establish native support.
 
-These are implementation statements, not completed browser acceptance. Selectable horizontal first-baseline alignment is implemented separately as described above. General label-row coordination across arbitrary opaque components remains unimplemented. UiCollectionHeader coordinates the editor bands of registered UiField views, including through business wrappers, using measured label space. It does not change ordinary first-baseline alignment.
+General label-row coordination across arbitrary opaque components remains unimplemented. UiCollectionHeader coordinates the editor bands of registered UiField views, including through business wrappers, using measured label space. It does not change ordinary first-baseline alignment.
 
 ## Observable acceptance
 

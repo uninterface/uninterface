@@ -131,35 +131,17 @@ Verify simultaneous table/list/paginators share one load/query/selection authori
 
 ## Application examples and observable workflows
 
-The demo's Collections destination supplies an asynchronous order browser. `OrderBrowser` encapsulates the list session and receives typed service operations. `OrderCollection` declares one set of UiCollectionField values and UiCollectionButton actions for a table, full-width cards or a responsive card grid. Automatic presentation uses the independent responsive context. Selection lives inside card headers and selected cards have a theme-owned indication; status/protection badges occupy the header's trailing edge. Independent paginator, size select and jumper controls borrow the same pagination facet. `OrderEditorDialog` hosts New and Edit in a modal, closing after successful saves and confirming dirty dismissal. `OrderEditorForm` retains codecs, validation, locks and baseline handling outside presentation changes; ordinary callers supply typed initial data and save. The service owns records and performs filtering/sorting/paging once. See [collection views](collection-views.md) for the authoring contract.
+Define fields and actions once with UiCollectionField and UiCollectionButton, then borrow the same list binding in tables and cards. Use UiCollectionHeader for search and creation actions, and UiCollectionFooter for accepted range, page size, pagination and Go to page. Let the source perform filtering, sorting and paging once. See [collection views](collection-views.md) for presentation and action ownership.
 
-Confirmed updates use known reconciliation only when the service can describe the current window. A same-key edit or an insertion into a partially filled last page can update without refetching. A change that would require unseen replacement rows uses unknown reconciliation and exposes Refresh. Known deletion can leave a shorter accepted page; refresh obtains its replacement records. Selection retains stable keys through refreshed objects and view changes.
+Use known reconciliation only when the service can describe the accepted window. A same-key edit or insertion into a partially filled last page can update without refetching. If unseen rows are needed to describe the result, use unknown reconciliation and offer Refresh. Known deletion can leave a shorter accepted page until refreshed. Selection follows stable keys through record replacement and presentation changes.
 
-Collections offers Pages and Infinite scrolling over the same Orders source and UiCollectionView definitions. Infinite mode uses cursor accumulation and the boolean `infinite` prop in both tables and cards. Its bounded viewport requests continuation near the end through pointer, touch or keyboard scrolling, without a Load more action, paginator or invented total. Failed append retains accepted rows and needs explicit Retry; terminal metadata ends loading. Filtering/refresh replaces the query generation. Confirmed writes invalidate cursor positions and the owner refreshes the current query before continuing. Hiding/deactivating the view pauses automatic observation without discarding the owner. Switching Browsing deliberately starts a new query/selection session while preserving service records; presentation changes retain the session.
+For cursor accumulation, give the collection a bounded body and use the `infinite` prop. Scroll near the end with pointer, touch and keyboard and verify that the view requests continuation with no paginator or invented total. A failed append retains accepted rows and exposes Retry. Terminal metadata stops automatic loading. Confirmed writes can invalidate cursor positions, requiring a fresh query. Hiding the view pauses observation while the owner retains its session.
 
-The Invoices destination starts with 56 saved invoices. UiCollectionHeader
-contains reference search and New invoice; UiCollectionView shares reference,
-line-count, total and Edit definitions between a desktop table and mobile cards.
-UiCollectionFooter arranges the range/total, page size, paginator and jumper.
-The default is ten invoices per page, with 5/10/20/50 choices. The collection
-body scrolls while the page title, query header and footers remain visible.
+For a paged collection that opens an editor, keep search and pagination in the outer list. Successful save can refresh that query so membership, counts and visible records reflect the accepted result. Failure keeps the editor and its draft open. Verify that a record that no longer matches the current filter leaves the results after refresh. See [editable collections](editable-collections.md) for full-draft ownership and [editing in modals](form-modals.md) for save and dismissal policy.
 
-Search trims surrounding whitespace and matches a case-insensitive reference
-substring. Clearing and submitting restores the collection; a changed keyword
-resets pagination to page one. The standard search-filter session owns unfinished
-input independently of the view. New invoice and Edit open a dedicated modal
-with all editable line items visible, without line search or pagination. Save
-refreshes the current outer query so membership, counts and page contents reflect
-the accepted invoice; a new invoice may appear on another page and a changed
-reference may leave the current search. Failed save preserves the open draft,
-and dirty dismissal offers Keep editing or Discard. Each modal run owns a fresh
-editor session. Demo settings contains the one-shot failure simulation and
-Things to try, outside the business collection. See [editable
-collections](editable-collections.md) for full-draft ownership and validation.
+For an unpaged list of saved attachments, apply canonical descriptors returned by successful saves and route removal through item-context actions. Keep pending file drafts and preview lifetimes with their owners. See [file summaries](files.md#file-summary-presentations).
 
-The Files destination uses an unpaged list for already-saved attachments. The existing acquisition forms remain the only add workflow. Same-key saves upsert canonical descriptors; item-context removal updates the stand-in persistence and its projection. Upload drafts and preview URL ownership remain independent.
-
-Verify these workflows through the actual compositions: one source call per accepted query action, no reads caused by mounting additional views, full selection/query retention, immediate known changes, explicit stale reconciliation, no automatic failure loop, and cleanup after navigation/disposal. Browser geometry, real focus/keyboard behavior, theme/zoom and assistive-technology acceptance remain separate.
+Verify one source call per accepted query action, no extra reads from mounting additional views, selection and query retention across view changes, immediate known reconciliation, explicit retry and cleanup when the owner ends. In a browser, check keyboard, focus, geometry and zoom. Use assistive technology for status announcements.
 
 ## Column allocation
 
@@ -208,7 +190,7 @@ Observable checks: use enough rows to exceed the allocation; the bounded collect
 
 ## Read failures and recovery
 
-UiTable, UiList and UiCollectionView supply an error UiNotice by default, with Retry in its actions slot. A source failure is not an empty result. No demo-specific markup or CSS is required.
+UiTable, UiList and UiCollectionView supply an error UiNotice by default, with Retry in its actions slot. A source failure is not an empty result.
 
 | Failed operation | Presentation |
 |---|---|

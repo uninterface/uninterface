@@ -21,6 +21,6 @@ Layout owns the offered space; this strategy determines whether the button fills
 
 supporting backends integrate this query via useUiButtonPresentation and declare strategy.button-width.v1. Stretch the actual control as well as its containment wrapper. Use compatible native width facilities or adapt the existing containment host. Keep focus, native sizing and accessible helpers intact. Use [uiButtonWidthQuery](../api/constants/uiButtonWidthQuery.md) to answer/block the concern from custom strategies.
 
-The demo's DemoSettings applies a local query barrier and width selection only to its actions slot: full on mobile, content otherwise. Settings fields, previews and business collection actions are outside that attachment.
+For a settings panel, scope the strategy to the action area and choose full width in a narrow layout and content width in a wider layout. Block incoming width requests at that scope if the panel owns the action layout. Keep the strategy outside unrelated fields, previews and business actions.
 
 Verify agreement/conflicts, blocking, desktop/mobile transitions without remounting, text-button stretch, icon/input-frame exclusions and unchanged click/disabled behavior. DOM checks establish selection and wiring; browser checks must confirm equal full widths, narrow/RTL containment and focus appearance.

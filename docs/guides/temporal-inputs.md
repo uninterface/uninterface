@@ -72,4 +72,4 @@ Use `presentation` to customize the time display without changing its canonical 
 />
 ```
 
-The Dates and times demo includes all three range kinds with all four boundary modes enabled. Adapter-owned popups participate through the [control-frame contract](control-frames.md); browser-owned picker UI follows native focus behavior.
+To verify an enabled range kind, exercise every boundary mode offered by its definition. Adapter-owned popups participate through the [control-frame contract](control-frames.md); browser-owned picker UI follows native focus behavior.

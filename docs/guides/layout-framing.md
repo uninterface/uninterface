@@ -136,7 +136,7 @@ const zParts = {
 } as const
 ```
 
-Bind `zParts` to UiRegionLayout. Start and end share the upper presentation level; main stays below both. The demo assigns all checked regions above unchecked regions with the same constraints. All checked (or all unchecked) therefore yields no raised boundary between neighbours. Selecting a temporarily hidden region retains its preference for when it returns.
+Bind `zParts` to UiRegionLayout. Start and end share the upper presentation level; main stays below both. If the application lets users choose raised regions, assign all raised regions above the unraised ones. Equal-level neighbours have no raised cue. The application can retain the preference for a hidden region and apply it when the region returns.
 
 The example raises start. Raise end and place it above main to obtain a raised footer; raise main above start/end to emphasize its two adjoining edges. Horizontal arrangements remain supported: the start region's after edge is its right edge in LTR and left edge in RTL. Vertical start/end edges are bottom/top. No business CSS side names are needed.
 
@@ -171,7 +171,7 @@ Wrapping does not establish a measured horizontal minimum. It cannot fit a glyph
 
 Business authors supply content, bounded hosting, meaningful separator/scroll names and permitted spatial relationships. Core validates relationships, negotiates presentation and owns resize state. Backends own allocation markup, pointer geometry, keyboard integration, native theme presentation and focus. No business CSS or pixel deductions are required.
 
-The Region Layout demo requests visible ordinary separators in every scenario, including all-raised and none-raised states. It offers separated regions, resizable panels and a Raised region scenario with independent start/main/end checkboxes and one retained reading area. Raised region also has a “Start region is a navbar” option, checked by default: choose UiNavbar or UiContent in either direction independently of which regions are raised. Its Example link is a focusable dummy link: activation is prevented and its target remains the Region example. The navbar owns its internal spacing; UiContent owns the alternative content inset, while the designated navigation allocation coordinates the adjoining boundary. Verify both directions, RTL, optional regions, resize limits, theme changes and retained input/focus. In a real browser, verify that reading paragraphs do not overlap, the first and last remain reachable, resize handles change actual dimensions, and the raised header remains stationary while main scrolls. DOM tests establish wiring/state only.
+Try a layout with UiNavbar in start, reading content in a scrollable main and optional supporting content in end. Swap UiNavbar for UiContent to exercise a different child while keeping the boundary layout-owned. Verify both axes, RTL, optional regions, resize limits, theme changes and retained input and focus. In a browser, verify that paragraphs remain legible and reachable, resize handles change actual dimensions, and an elevated header stays fixed while main scrolls within its allocation.
 
 When enclosing an already-inset region composition in UiCard, use its [layout body slot](cards.md#host-an-arranged-body) to avoid adding a second outer inset. This feature does not add bounded-body hosting to UiCard. Its current content-height behavior remains documented in the [card reference](../api/components/UiCard.md).
 

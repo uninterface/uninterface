@@ -38,7 +38,7 @@ Use the same order when composing an application stylesheet:
 @import '@uninterface/backend/style.css';
 ```
 
-Keep CSS imports before ordinary rules. Font entries own family selection, language fallbacks and delivery; `style.css` owns component styling and native font-token mapping. It consumes the selected set without replacing it. Network and Bundled use identical families for the selected set. Importing multiple font entries is unsupported. The demo explicitly uses Backend default · Network.
+Keep CSS imports before ordinary rules. Font entries own family selection, language fallbacks and delivery; `style.css` owns component styling and native font-token mapping. It consumes the selected set without replacing it. Network and Bundled use identical families for the selected set. Importing multiple font entries is unsupported.
 
 ## System or application-owned fonts
 

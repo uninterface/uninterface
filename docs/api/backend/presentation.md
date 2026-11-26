@@ -85,7 +85,7 @@ The four font choices are backend or Uninterface default, each with Network or B
 
 `native.content.v1` declares the complete [native HTML contract](../../contracts/native-html.md) and the canonical [business-author element table](../../guides/native-html.md#baseline-elements). Ship these defaults through the ordinary `./style.css` entry. Backends supply the document baseline without requiring a provider, generic marker class, prose wrapper or additional business import. Retain toolkit defaults where they fulfill the contract; repair reset gaps using native theme values and preserve component/utility overrides. Document native mappings and limits in the backend package.
 
-Support includes prose rhythm, list markers, links and visible keyboard focus, text annotations, technical text with wrapping, light/dark inheritance and language/direction semantics. Respect the specified layout-versus-prose spacing ownership. Every advertised element must be exercised in the shared content fixture. Build and DOM evidence does not establish visual acceptance; record browser verification separately.
+Support includes prose rhythm, list markers, links and visible keyboard focus, text annotations, technical text with wrapping, light/dark inheritance and language/direction semantics. Respect the specified layout-versus-prose spacing ownership. Exercise every advertised element using a content fixture built from the [native HTML guide](../../guides/native-html.md#observable-acceptance). Verify wrapping, spacing and focus appearance in a browser.
 
 
 ## Text-source resolution

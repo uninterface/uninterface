@@ -37,9 +37,7 @@ Horizontal is the default; `orientation="vertical"` requests a vertical strip. T
 
 Verify selection and submitted business values, disabled options, no deselection on repeat activation, arrow/Space/Tab behavior, error feedback, reset and focus on invalid submission. Also inspect translated labels, RTL arrow direction, dark mode, local scrolling and visible focus at narrow widths. Automated source/DOM checks do not establish browser appearance or assistive-technology acceptance.
 
-The demo has a dedicated Segmented select page with an initially unselected required field, a disabled choice, local disabling and Save/Reset. Flow layout, Region layout, Input frame and Collections use it for small setting sets. Record details uses one Load result field with Load successful, Load failure and Empty result; each request captures the current setting when dispatched, and Restore chooses a successful result.
-
-The demo also uses segments for Appearance in both headers, Navigation mode, the editor’s Next save result, and asynchronous Loading outcome. Existing field values, persistence and operations remain owned by their original controls.
+Use a segmented field for short, mutually exclusive settings such as a display mode or a choice of frequency. Keep the chosen setting with its owner if a request uses it. For a setting that affects future requests, read the value at dispatch so editing it while a request is pending leaves that request’s behavior stable.
 
 ## Integrated field presentation
 

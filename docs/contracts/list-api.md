@@ -131,7 +131,7 @@ The ordinary consumer of an encapsulated invoice editor supplies typed initial d
 
 ## Retained attachments as a small acceptance case
 
-The Files demo borrows a list control, renders UiFilePreview thumbnail rows through UiList and routes removal through the item-context button. Existing acquisition/save callbacks remain the only add workflow; accepted canonical same-key descriptors replace retained values. The actual file workflow has DOM coverage, including preview cleanup.
+Create a list session for saved attachments and borrow its binding in a view that renders file previews and exposes item-context removal. Acquisition and saving stay with the owning operation. When a save returns a canonical descriptor with an existing key, update that list record. Verify that removal and replacement release previews when their owners end.
 
 Keep saved attachments separate from pending upload/form drafts and preserve File/object-URL cleanup. Reimplementing UiFileCollection or changing its API is not part of this contract.
 
@@ -139,4 +139,4 @@ Keep saved attachments separate from pending upload/form drafts and preserve Fil
 
 Control tests establish scheduling, query snapshots, metadata, selection and confirmed-action behavior. Remaining component acceptance must establish identical item/context delivery in list/table, typed direct/reusable columns, SSR order, reactive declarations, shared external/header queries, multi-paginator synchronization, native toolkit fidelity, static imports/tree shaking and no duplicated processing.
 
-The implemented business examples are known-page async orders, a distinct infinite-scroll list without a visible paginator, full-draft invoice lines and retained attachments. Shared DOM coverage exercises their representative workflows. They require actual keyboard, focus recovery, nested-action isolation, bounded/grid/table geometry, narrow/touch/zoom, localization/dark mode, status announcements and owner cleanup evidence across supporting backends. Controls alone do not close those requirements.
+Verify paged queries, cursor accumulation without a paginator, editing a full child draft and removing a saved attachment. Exercise keyboard interaction, focus recovery, nested-action isolation, bounded table and grid geometry, narrow viewports, touch, zoom, localization, dark mode, status announcements and owner cleanup on the selected backend.

@@ -14,7 +14,7 @@ Core and backend packages expose `capabilities.json`. Capability identifiers are
 
 `createUiApplication(root, { requires })` checks explicit requirements against the union of core and selected-backend capabilities before mounting. Components also check the capabilities needed by their supplied options. Business code can inspect active support through [getUiRuntime](../api/functions/getUiRuntime.md). Tooling checking an arbitrary candidate can use [assertUiCapabilities](../api/functions/assertUiCapabilities.md).
 
-The current checker matches literal identifiers; it does not negotiate versions, infer dynamic Vue expressions, install providers or prove that a declared implementation behaves correctly. Build tooling can check explicit manifests before execution. The development workspace does so for its scenarios; installing core alone does not install an automatic Vue-template scanner.
+Capability checks match literal identifiers. Application build tooling can compare explicit manifests before execution. Check versions and dependency resolution in application assembly, and use the documented acceptance criteria to verify behavior.
 
 ### Control focus
 

@@ -39,4 +39,4 @@ Native keyboard and touch conventions differ; shared semantics do not require id
 
 Use the testing package's `multiSelect(...).setSelected(key, boolean)`, `expectSelected(key)` and `clear()` operations. Backend adapters identify actual triggers/popups/clear controls; scenarios do not branch on backend names. Candidate keys remain exact even with punctuation or empty keys.
 
-The demo's Editor → General uses notification-channel keys translated into numeric business values. Test save/reset, reordered-equivalent dirty state, unknown/disabled choices, source refresh/failure, clear preserving locked values, actual field focus and long labels. Rendered checks validate bindings and lifecycle; real-browser checks are required for native keyboard/popup behavior .
+Verify that the numeric codec above round-trips selected keys to business IDs through Save and Reset. Check that reordering an equivalent selection leaves the field clean. Exercise unknown and disabled choices, source refresh and failure, and clearing with locked values selected. In a browser, verify field focus, long labels and native picker keyboard behavior.

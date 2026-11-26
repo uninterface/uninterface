@@ -1,6 +1,6 @@
 # Navigation in a drawer
 
-A navigation drawer combines a trigger, a modal surface and a persistent hierarchy view. `createUiNavigationDrawerControl` supplies their coordination without introducing a required component tree. Compose the existing views; ordinary consumers need no backend imports, CSS, duplicate navigation controller or open boolean. The demo's mobile header is a working example.
+A navigation drawer combines a trigger, a modal surface and a persistent hierarchy view. `createUiNavigationDrawerControl` supplies their coordination without introducing a required component tree. Compose the existing views; ordinary consumers need no backend imports, CSS, duplicate navigation controller or open boolean.
 
 ## Ownership and consumer obligations
 
@@ -57,7 +57,7 @@ Opening uses the drawer backend's focus entry. Escape, outside interaction and t
 
 ## Responsive headers
 
-Keep branding/settings mounted while changing navigation presentation. On mobile the demo places the hamburger beside the brand and keeps settings at the opposite end in one row. Its default navbar navigation slot is absent, rather than containing a hidden menu that still takes allocation. On desktop the same binding supplies a horizontal menu.
+Keep branding and settings mounted while switching navigation presentation. For a compact navbar, place the drawer trigger beside the brand and settings at the opposite end. Render the default navbar navigation slot only in inline mode so the hidden horizontal menu consumes no space. The inline menu and drawer use the same navigation binding.
 
 Use [useUiResponsiveNavigationSwitch](../api/functions/useUiResponsiveNavigationSwitch.md) when an inline menu and drawer replace one another. Map your responsive contexts to `'inline'` or `'drawer'` and supply that mode, the drawer control and a surviving focus target, such as the brand link. Render from its committed `mode` ref and connect the menu and trigger refs. It waits for drawer exit before removing its host, handles superseding mode requests, and recovers focus when the switch removes it. Contexts that map to the same mode can share the mounted navigation. Keep entry and navigation owners and cached business pages outside the conditional views.
 

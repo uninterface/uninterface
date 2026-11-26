@@ -2,7 +2,7 @@
 
 Use this pattern for a focused create/edit task that should return the user to the collection or detail view they came from. The business component owns the editing workflow and supplies typed results. UiModal supplies the interaction boundary, while UiForm supplies the native form and connects the editing session to persistence. A dedicated page is also appropriate when the task needs its own navigation, long-lived context or several independent work areas.
 
-This is an implemented composition pattern, demonstrated by Editor → Invoices and Examples → Collections. It requires no special form-modal component, backend CSS or additional form manager. For modal lifecycle details, see [awaitable modal interactions](modals.md); for encapsulating fields and controls, see [business components](business-components.md).
+Compose the existing UiModal, UiForm and UiButton views. See [awaitable modal interactions](modals.md) for lifecycle details and [business components](business-components.md) for encapsulating fields and controls.
 
 ## Give the consumer a business operation
 
@@ -58,7 +58,7 @@ In this excerpt, `saveCustomer` returns the canonical field-value object. Use an
 
 Generate `formId` once for the owned form instance, for example with Vue `useId()`. The footer button's `form` attribute associates it with that native form even though it is outside the form's DOM subtree. Its submit binding supplies type, loading and availability. Do not combine this binding with an `@click` call to submit or a second persistence callback. That would create competing submission routes. See [external form actions](control-bindings.md#external-form-actions).
 
-A reusable form may own its session while its enclosing dialog owns the footer. The pair can share a narrow internal interface: form ID, submit-button binding, pending/dirty observations, field-focus request and accepted-save event. The dialog uses these to arrange actions and evaluate closure; it does not reconstruct the form or take over its controls. `InvoiceEditorForm` and `OrderEditorForm` demonstrate this through their application-specific `externalActions` option and exposed members. Those names are not additional Uninterface APIs or requirements for every business component.
+A reusable form may own its session while its enclosing dialog owns the footer. Share the form ID and submit-button binding for the footer, pending and dirty state for close policy, and a field-focus request and accepted-save event for the dialog lifecycle. The form keeps ownership of its controls.
 
 ## Treat saving and closing as one workflow
 
@@ -109,6 +109,6 @@ Keep submission activity on the bound action and the form's normal availability 
 - Long content and narrow screens keep footer actions reachable. Check wrapping, localized labels, Tab order, initial focus, nested confirmation and return focus.
 - Removing the owner during save cannot publish into a new editor session; cleanup releases the form and modal resources.
 
-The two demo workflows have DOM coverage across supporting backends for native association, shared footer placement, validation, pending behavior, failure/retry and dirty dismissal. Browser geometry and assistive-technology acceptance require separate verification on the selected backend. Use the checklist above; do not infer visual conformance from DOM assertions.
+Use a browser on the selected backend to check layout geometry and focus. Use assistive technology to check announcements and operability.
 
 At very short viewport heights, verify the backend's overflow fallback. Retaining a usable editing area can require body scrolling when fixed supporting regions would otherwise leave no operable rows. Completion actions remain in the modal footer; do not hide or overlap row controls to preserve pinning.

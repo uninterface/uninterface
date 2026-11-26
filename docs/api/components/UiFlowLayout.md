@@ -54,7 +54,7 @@ Core supplies `layout.flow.v1`; the composition fixes content allocation and for
 
 Declare `layout.flow.v1`, `layout.linear.v1`, and `layout.reactive.v1`, plus `layout.wrap.v1`, `layout.align.v1` for explicit alignment, and `layout.scroll.v1` as used. Unsupported combinations and missing capabilities fail loudly. Ordinary default stretch is part of the shared linear behavior.
 
-The interactive demo offers direction, wrapping, alignment and item-participation controls. Unit tests validate alignment vocabulary and combinations. Production DOM tests check item order, empty flows, stable focus/value, accessible scrolling, and failures. Shared browser acceptance measures actual wrapping and alignment using the same demo; DOM simulation is not proof of browser geometry or accessibility conformance.
+Exercise direction, wrapping, alignment and conditional item participation in a flow with an editable item. Check item order, empty flows, retained focus and values, scroll naming and invalid alignment requests. In a browser, measure row wrapping and cross-axis alignment and exercise keyboard scrolling.
 
 ## Stacking
 

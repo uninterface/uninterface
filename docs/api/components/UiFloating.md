@@ -11,7 +11,7 @@ A viewport-attached host for supplementary actions, normally one ordinary button
 | `position?: number` | Unspecified | Controlled preference, taking precedence over local state. |
 | `zOrder?: UiZOrder` | Owning Surface's Floating layer | Standard shared ordering declaration, never a numeric CSS rank. |
 
-The default slot supplies one floating unit, potentially a composition. UiFloating contributes no normal-flow allocation and no button action or expansion owner. A UiButton is optional. A custom clickable icon host must supply its accessible name, action semantics, keyboard activation, visible focus and disabled behavior where applicable; an image role and click listener alone do not supply those interactions. The demo uses an icon-only UiButton to obtain those behaviors. Attributes reach the actual floating host.
+The default slot supplies one floating unit, potentially a composition. UiFloating contributes no normal-flow allocation and no button action or expansion owner. A UiButton is optional. A custom clickable icon host must supply its accessible name, action semantics, keyboard activation, visible focus and disabled behavior where applicable; an image role and click listener alone do not supply those interactions. An icon-only UiButton provides these behaviors when given an accessible name. Attributes reach the actual floating host.
 
 For start/end, position zero is top and one is bottom. For top/bottom, zero is logical start and one is logical end. End is right in LTR and left in RTL. Position describes available travel after accounting for the unit's size, backend clearance and platform safe areas. A viewport clamp preserves the remembered preference. Keep floating content small enough to fit the viewport.
 

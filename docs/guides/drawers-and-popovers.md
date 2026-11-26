@@ -40,7 +40,7 @@ The caller mounts the component and awaits chooser.value.choose(initial). It sup
 
 This excerpt illustrates the component's internal host and content; its caller may also provide a forwarded host slot and handle the returned business result. The host binding registers the actual trigger and supplies accessibility state. It does not start run on the caller's behalf. Repeated activation while presented is consumed and requests trigger cancellation only if enabled. A separate anchor binding can identify another subject while retaining the trigger as focus-return destination.
 
-Default/header-extra/actions/footer slots follow UiModal conventions; actions and footer are alternatives. Use native UiForm ID and UiButton form association for footer submission. Ordinary form validation and save feedback remain in the business composition. A successful save only completes a run when the composition explicitly calls session.complete. Dirty/pending policies belong in beforeClose. The demo's OverlayNoteEditor encapsulates these details, including a nested discard confirmation.
+Default/header-extra/actions/footer slots follow UiModal conventions; actions and footer are alternatives. Use native UiForm ID and UiButton form association for footer submission. Ordinary form validation and save feedback remain in the business composition. A successful save only completes a run when the composition explicitly calls session.complete. Dirty/pending policies belong in beforeClose. A reusable note editor can own these details, including a nested confirmation before discarding an unsaved draft.
 
 ## Header, content and footer
 
@@ -48,7 +48,7 @@ UiDrawer and UiPopover integrate the [header/main/footer reference arrangement](
 
 The main body scrolls within the frame's bounds; header and footer stay outside that scrollport. `#actions` accepts ordinary buttons whose spacing, alignment and wrapping belong to the backend. Use `#footer` when you need to compose other footer relationships yourself. No footer is required for content-only interactions, and no extra heading or action should be added merely to fill the arrangement.
 
-A native popover may provide only the outer surface. The backend must then supply the missing internal arrangement; consumers should not compensate with CSS or a wrapper around ordinary actions. A backend can compose compatible native region facilities to supply header/body/footer arrangement, including action spacing. The demo uses standard actions for its editor and a custom footer for the scratchpad retention message. Lifecycle/DOM checks do not establish visual layout acceptance.
+A native popover may provide only the outer surface. The backend must then supply the missing internal arrangement; consumers should not compensate with CSS or a wrapper around ordinary actions. A backend can compose compatible native region facilities to supply header/body/footer arrangement, including action spacing. Use the actions slot for editor buttons and a custom footer when the region needs supporting text, such as a scratchpad retention message.
 
 ## Persistent panels
 
@@ -79,4 +79,4 @@ Modal surfaces mask/block background interaction and lock ancestor/document scro
 
 Check both drawer ownership contracts and all three modes, hidden-panel draft identity, lazy mount, disabled versus authoritative owner changes, all run outcomes, refused closure and sequential reuse. Exercise trigger/outside/Escape routing, supported drag dismissal (accepted, denied, pending and disabled), nested select/menu and confirmation interactions, separate anchors and anchor removal. Change language, direction and color mode while content is open. In a real browser verify logical edges, viewport clipping, zoom/software-keyboard behavior, bounded long-content scrolling, focus containment only when modal, background operability and focus restoration.
 
-Shared DOM regressions exercise the real core/backend components across supporting backends. They establish lifecycle and wiring, not physical geometry, browser top-layer behavior or accessibility conformance. Browser scenarios are provided separately; execution evidence is recorded in the workspace implementation ledger.
+Use DOM checks for lifecycle and wiring. Verify dialog dimensions, popup placement, top-layer behavior and keyboard focus in a real browser. Check naming and announcements with assistive technology.

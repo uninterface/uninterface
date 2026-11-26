@@ -35,7 +35,7 @@ UiUploadRegion continues to own its internal optional preview and action arrange
 
 ## Observable verification
 
-DOM coverage checks field-derived naming, hidden labels, descriptions, disabled/invalid state, feedback suppression, empty allocation, arbitrary preview content, child identity and absence of edits or input mechanics. File-demo checks retain selection, invalid-editor focus, reset and URL cleanup. Browser coverage checks the visible control frame, borderless image content and stable bounds through empty/image/failure states; browser execution remains a separate acceptance step.
+Verify field-derived naming, hidden labels, descriptions, disabled and invalid states, feedback suppression, empty allocation and child identity with arbitrary preview content. In a file form, select and clear a file, submit an invalid form and reset the draft. Check that the acquisition editor retains ownership of selection and focus and that discarded preview URLs are released. In a browser, inspect the visible control frame, borderless image content and stable bounds through empty, image and failure states.
 
 ## Stacking
 

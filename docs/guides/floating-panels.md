@@ -77,13 +77,13 @@ Panel and modal drawers host their popups within their own overlay scope.
 
 ## Present narrow content through strategies
 
-A narrow panel is a presentation context, not evidence that the device became mobile. Use UiStrategy with applicable label/width queries and application-owned arrangement queries. A reusable settings composition can participate in such a query and resolve its actions vertically/full-width while leaving controls normally sized. Query barriers and agreement still apply; an outer wrapper cannot override an inner composition that never consumes that policy. Keep the actual responsive environment intact and keep the demonstrated business form outside a demo-options strategy.
+A narrow panel is a presentation context, not evidence that the device became mobile. Use UiStrategy with applicable label/width queries and application-owned arrangement queries. A reusable settings composition can participate in such a query and resolve its actions vertically/full-width while leaving controls normally sized. Query barriers and agreement still apply; an outer wrapper cannot override an inner composition that never consumes that policy. Keep the actual responsive environment intact and keep the demonstrated business form outside a settings presentation strategy.
 
 ## Give supplementary content a clear hierarchy
 
 A panel title names the whole surface. A panel with one subject can present its content directly, avoiding a redundant card or repeated generic heading. Group multiple subjects such as controls, read-only output and usage guidance as peers beneath that title; use matching section heading ranks and visual treatment. Avoid repeating the surface title as a larger inner heading or giving only one peer an additional frame. Keep output-related status with its output, and make general usage guidance independent of that output. A panel's scrollport already supports reading; a nested disclosure needs a separate reason.
 
-A reusable application composition can own these section slots, order and titles, while pages supply their controls, values and operations. Existing UiCard, UiLayout and scoped card strategies can give peer sections consistent compact treatment across backends without application CSS or a new library component. Keep the strategy scope limited to its intended section frame so opaque content retains its presentation policy. The General demo uses this pattern under the common localized title Demo settings.
+A reusable application composition can own these section slots, order and titles, while pages supply their controls, values and operations. Existing UiCard, UiLayout and scoped card strategies can give peer sections consistent compact treatment across backends without application CSS or a new library component. Keep the strategy scope limited to its intended section frame so opaque content retains its presentation policy.
 
 ## Ownership and acceptance
 

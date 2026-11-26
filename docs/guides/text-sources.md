@@ -43,21 +43,21 @@ const entry = {
 
 Register the `editor` namespace in application resources. A plain string passed to core `lt` is literal text, just as with `text`; it is not interpreted as a dotted translation key. Translation resolves against the owning application's current locale each time the returned function is read. Destructuring `lt` is safe; no global locale service or `this` binding is needed. Await the control's `ready` before rendering application messages. Missing-key errors occur when the text function is evaluated, not when it is created.
 
-For business code, declare the namespace and key union once. The demo uses a core definition shared by component hooks and standalone codecs:
+For business code, declare the namespace and key union once. Use the same typed definition in component hooks and standalone codecs:
 
 ```ts
 import { defineUiI18n } from '@uninterface/uninterface'
 import type en from './en'
 
-type DemoMessageKey = keyof typeof en
-export const { useI18n: useDemoI18n, msg: demoMessage } =
-  defineUiI18n<DemoMessageKey>('demo')
+type EditorMessageKey = keyof typeof en
+export const { useI18n: useEditorI18n, msg: editorMessage } =
+  defineUiI18n<EditorMessageKey>('editor')
 
 // In component setup:
-const { i18n, t, lt, msg } = useDemoI18n()
+const { i18n, t, lt, msg } = useEditorI18n()
 ```
 
-`defineUiI18n` runs at module scope without injection or locale state. The generated hook obtains the current application's existing control when called. Standalone `demoMessage(key, params?)` is available to codecs and validators outside Vue setup. The factory does not register or load resources; follow the [complete application-helper recipe](localization-and-icons.md#typed-application-helper).
+`defineUiI18n` runs at module scope without injection or locale state. The generated hook obtains the current application's existing control when called. Standalone `editorMessage(key, params?)` is available to codecs and validators outside Vue setup. The factory does not register or load resources; follow the [complete application-helper recipe](localization-and-icons.md#typed-application-helper).
 
 | Operation | Result | Resolution and use |
 |---|---|---|

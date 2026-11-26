@@ -2,7 +2,7 @@
 
 Choose the layer before writing a view: [the selection reference](collection-presentation.md) separates header arrangement, whole filter/sort collections and individual filter editors. Customizations are ordinary Vue compositions using public Uninterface imports. No backend-name checks, registry, CSS schema or new standard component is required.
 
-The complete examples below live in [docs/examples/collection-adaptations](../examples/collection-adaptations/CollectionPresentation.vue). Copy the five files together into your application when trying the recipe. They are reference application code, not exports from `@uninterface/uninterface`. The workspace imports them into its TypeScript check and exercises them in a focused DOM fixture. They do not add a demo page or change the default library presentations.
+Copy the five files in [the collection adaptation example](../examples/collection-adaptations/CollectionPresentation.vue) into the same application directory. Use the [application setup](../getting-started.md) and mount CollectionPresentation where you want the example. These files define application-level adaptations. The library’s default presentations apply wherever you omit the overrides.
 
 ## Start with selection, not a replacement view
 

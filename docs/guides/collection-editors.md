@@ -61,7 +61,7 @@ The [editable-value guide](editable-collections.md) remains authoritative for co
 </UiForm>
 ```
 
-Column bindings use editor.bindings.list and normal column definitions. Labels, columns, codecs, totals and persistence stay with the business component. Summary metadata is available without reconstructing completeness/staleness rules; business code still calculates totals and formats money. The invoice demo follows this pattern.
+Column bindings use editor.bindings.list and normal column definitions. Labels, columns, codecs, totals and persistence stay with the business component. Summary metadata is available without reconstructing completeness/staleness rules; business code still calculates totals and formats money.
 
 Uninterface's field-context editors automatically register their public focus handles in this borrowing scope. A custom editor can use editingView.register(field, handle), retaining and calling its unregister function on removal. The controller never inspects slot internals or backend DOM. No editor-reference map, button wrapper or document-ancestry check belongs in the business component.
 

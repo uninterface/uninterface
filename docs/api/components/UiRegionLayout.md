@@ -115,7 +115,7 @@ Baseline alignment is reserved for horizontal UiLayout/UiFlowLayout peer rows; U
 
 Declare `layout.regions.v1`, `layout.linear.v1`, `layout.reactive.v1`, and `layout.division.v1`, plus `layout.region-scroll.v1` for grouped policies, `hosting.viewport.v1` for viewport hosting, and `layout.scroll.v1` when whole-layout scrolling is used and `layout.align.v1` for explicit alignment. Unsupported underlying geometry combinations and unmet backend capabilities fail visibly. A composition declares every capability its possible policies need.
 
-Acceptance covers adjoining boundaries in both directions, scrollports meeting retained regions, content insets moving with scrolling, optional and empty outer slots, stable named shares, multiple roots per region, nesting, retained main input/focus, required main, invalid shares, and accessible scroll naming. The interactive demo includes a three-region example with orientation and participation controls and a scrollable main. Shared browser checks measure geometry, RTL placement and keyboard scrolling; DOM simulation establishes wiring and state retention but not those visual behaviors.
+Acceptance covers adjoining boundaries in both directions, scrollports meeting retained regions, content insets moving with scrolling, optional and empty outer slots, stable named shares, multiple roots per region, nesting, retained main input/focus, required main, invalid shares, and accessible scroll naming. Compose start, main and end with a scrollable main, then switch the axis and remove and restore the supporting regions. In a browser, measure geometry and RTL placement and exercise keyboard scrolling.
 
 ## Framing, resizing and layers
 

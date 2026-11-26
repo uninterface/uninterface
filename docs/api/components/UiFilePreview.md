@@ -33,7 +33,7 @@ The backend owns the square visual bounds for each presentation. Images preserve
 
 Currently, only image media types supply thumbnails, using the existing previewUrl/contentUrl/local Blob URL resolution. Other files keep their icons even if they have a previewUrl; an image-thumbnail descriptor for non-image documents is not defined. UiImagePreview remains image-only and keeps its own broken-image fallback.
 
-The Files demo's Retained attachments opts into thumbnail Tiles as media fields in UiCollectionView’s card grid, with a separate top-end Remove action. It remains saved results from the dummy server; this option adds no acquisition workflow or collection API.
+For a saved-attachment grid, place a thumbnail Tile in the card’s media field and supply a separate, accessible Remove action at the top-end through the collection action definition. The list owner handles removal and updates saved results. See [file summaries](../../guides/files.md#file-summary-presentations).
 
 ## Supported icon families
 

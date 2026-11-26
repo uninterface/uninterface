@@ -6,7 +6,7 @@ For ordinary local inline editing, add [collection editor coordination](collecti
 
 ## Ownership and ordinary use
 
-A reusable business component such as InvoiceEditor accepts typed initial data and a save operation. It constructs fields, codecs, rules, collection coordination and its local view projection internally. Its callers do not reconstruct those internals. Initial prop updates do not replace the active session; a deliberate keyed remount starts over. InvoiceEditor itself is application/demo code, not a core library export.
+A reusable invoice editor accepts typed initial data and a save operation. It constructs fields, codecs, rules, collection coordination and the view projection internally. Initial prop updates leave the active session intact. Use a deliberate keyed remount to start another editing session.
 
 ```ts
 import {
@@ -108,27 +108,14 @@ Pass this operation through `UiForm.focusInvalid: () => Promise<boolean>`. Retur
 - Force construction or formatter failure: no partial membership or baseline acceptance, and no leaked staged editor.
 - Dispose during parsing/validation/save: obsolete callbacks cannot publish into the ended session.
 
-The invoice demo starts with 56 saved invoices in UiCollectionView: a table on
-desktop and cards on mobile, using the same field/action definitions. Its
-UiCollectionHeader owns search and New invoice placement; UiCollectionFooter
-arranges range/total and pagination, defaulting to ten per page. Search matches a
-case-insensitive reference keyword. New invoice and Edit open a dedicated modal
-whose InvoiceEditorForm owns one session per run. Its line fields use `revalidateOn: 'validate'` and the collection uses `projection: 'validate'`: typing runs no automatic row checks, blur refreshes row values, and Save checks the complete draft. Lines use separate Description,
-Quantity, Unit amount, read-only Line amount and Actions table columns without
-pagination or search. In the dialog, overflowing rows scroll within the allocated body space; backends may fall back to body scrolling in very short windows to keep row controls usable. The column summary aligns its total with Line amount and uses the reactive label “Total for n items.” It counts full draft membership, including newly inserted incomplete lines. A specialized creation row follows the data and precedes the summary: tinted blocks mark each column’s content area inside the cell insets beneath a centered text-variant New line action; danger text actions show a delete icon with a localized accessible Remove name. There is no separate count row, detached invoice total or blur-status notice. New line immediately appends a draft and focuses Description; Remove abandons it. A strategy scoped to that table hides repeated visual
-labels while preserving accessible names and required/error associations; the
-invoice reference label remains visible. Line-field failures use tooltip presentation so blur feedback does not move a row action during its click. Outer search belongs to the collection,
-outside the modal. Demo settings holds failure simulation and experiment
-instructions, with a notice explaining page-local changes.
+For an invoice editor, use separate Description, Quantity, Unit amount, read-only Line amount and Actions columns. If row checks should run on blur and Save, use `revalidateOn: 'validate'` on fields and `projection: 'validate'` for the collection. Save still validates the complete draft. A summary can align its amount with Line amount and show the count of all draft lines, including newly inserted incomplete rows. Scope the label strategy to the line table to hide repeated visual labels while retaining accessible names and required/error associations. Keep the invoice reference label visible. Where the backend supports tooltip validation, it can keep feedback from moving the next row action during activation.
 
-Save and Cancel are grouped in the modal footer, with Save natively associated to the owned form. The invoice editor does not present a Reset button. The application modal owns closing policy: accepted save completes it and publishes the result to the list; failure keeps the draft open; dirty dismissal offers Keep editing or Discard; pending saves deny dismissal. The form emits its accepted value only after canonical acceptance. Closing disposes that editor, and reopening starts from saved data. Forced view removal ends the run; late callbacks cannot publish a result to the list. The caller supplies typed initial data and save operations rather than reconstructing fields or codecs. See [modal ownership](modals.md).
-
-These actual compositions have shared DOM coverage across supporting backends. Unit tests cover underlying lifecycle and race cases. DOM focus assertions do not establish real-browser geometry or assistive-technology conformance; that acceptance remains required.
+Put Save and Cancel in the modal footer and associate Save with the owned form using its ID and submit binding. Let the modal complete only after canonical acceptance and publish the result to the outer list once. Preserve the draft on failure, ask before discarding a dirty draft and deny ordinary dismissal while save is pending. Reopening starts from saved data. Forced teardown ends the run and late callbacks cannot publish into the list. See [editing in modals](form-modals.md) for ownership and browser checks, including short viewports.
 
 ## A creation affordance that follows the columns
 
 Use UiTable's `addRow` action binding and localized `addRowLabel` when adding belongs to an editable table's line workflow. The table supplies tinted column content areas inside native cell insets and an overlaid text-variant action from its existing columns. The owner supplies typed creation, insertion, availability and first-editor focus. Do not manufacture a sample record or mount a second editor session to illustrate the next line. This avoids accidental validation, identity allocation and data consumption before the user acts. The preview does not count as a draft.
 
-For immediate insertion, the binding's `activate` constructs a keyed draft, inserts it into the complete child collection, awaits the view refresh/render, and focuses Description. The invoice example selects this behavior; the presentation itself does not prescribe persistence or confirmation. After removing the final real row, call the table's `focusAddRow()` method. Ordinary consumers of InvoiceEditorForm still supply typed initial values and a save operation.
+For immediate insertion, the binding's `activate` constructs a keyed draft, inserts it into the complete child collection, awaits the view refresh/render, and focuses Description. The application chooses when to persist a newly inserted line or ask for confirmation. After removing the final real row, call the table's `focusAddRow()` method.
 
 Column definitions provide geometry and arbitrary cell templates; they do not identify editor types. The tinted areas convey the line’s content allocation after native cell insets without interpreting business slots. Paint remains backend-owned. The creation row follows the last data row and scrolls with the records, including in full-height tables. A pinned summary is independent. Short offers may release header pinning to preserve access. Verify that keyboard/pointer targets and the new editor stay unobscured. See [UiTable](../api/components/UiTable.md#add-row) for the complete API and checks.

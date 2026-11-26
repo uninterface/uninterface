@@ -29,7 +29,7 @@ const slow = createUiFieldControl(false)
 </template>
 ```
 
-The Shared input frame demo uses this pattern. Depth one limits the request to the directly participating layout; deeper logical descendants do not receive it. It adds no visible heading or selection owner. Use UiCheckboxGroup when the business value really is one selection set. Compact layout is not a promise to reproduce every backend's checkbox-group geometry: separate fields may have their own descriptions and validation feedback.
+Depth one limits the request to the directly participating layout; deeper logical descendants do not receive it. It adds no visible heading or selection owner. Use UiCheckboxGroup when the business value really is one selection set. Compact layout is not a promise to reproduce every backend's checkbox-group geometry: separate fields may have their own descriptions and validation feedback.
 
 ## Ownership and scope
 

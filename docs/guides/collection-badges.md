@@ -25,7 +25,7 @@ Import the two adaptations from `@uninterface/uninterface`. Create filters and t
 
 A standalone host can call `collectionSortBadges.view({ binding: sorting })` or `collectionFilterBadges.view({ bindings, render })`. The badge adaptation uses bindings to render its selected editor and does not call render; that callback remains part of the common panel context for other adaptations. Do not simultaneously mount another editor for the same filter. Summary badges themselves do not claim an editor.
 
-The Orders demo uses sort badges on desktop cards, ordinary sort panels in narrow layouts, and no redundant table sort panel at any width; sorted table headers supply priority menus when multiple rules are active. The Display card's Desktop filters option selects fields or badges for non-column filters. Table-column filters and narrow panels retain their established presentations. The application can choose different combinations without changing query ownership.
+For example, use sort badges on desktop cards and a sort panel on narrow cards. Where table headers already supply all sorting criteria and priority controls, the application can omit a separate sort panel. Choose fields or badges for external filters according to the available space and the task. These choices leave query ownership with the same session. See [example application policy](collection-presentation.md#example-application-policy).
 
 ## Adding and removing filters
 

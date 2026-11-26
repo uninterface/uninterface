@@ -86,6 +86,4 @@ Text action content aligns with the message column through backend-owned present
 
 For operation feedback with controllable delivery lifetime, use [feedback routing](feedback-routing.md) and a bound UiNotice. Direct declarative notices remain supported; the owner-accepted dismissal examples above describe unbound notices.
 
-Examples → Feedbacks contains the UiNotice style gallery (neutral, default, filled, outline, soft and custom icon) and a destination selector for sending one shared message to UiNotice, toast or notification. Examples → Record details retains its customer-loading, failure/retry and empty-result workflow, with contextual feedback alongside read-only details and badges.
-
 For measured or unknown operation progress, use [UiProgressBar](progress.md). Its bar observes the producer without owning operation lifetime or announcements.

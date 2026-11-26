@@ -36,7 +36,7 @@ The business composition knows which action saves, removes, confirms or cancels.
 
 For form Reset, use the owning reset binding with danger/outline; retain the native reset event route. Reusable business components encapsulate these choices with their workflow. Ordinary consumers supply typed data and operations.
 
-For an explicit non-destructive Yes/No decision, use success and danger respectively. This convention does not recolor checkbox/radio values or imply that choosing No deletes anything. The current demo has no literal Yes/No action pair; discard/keep-editing dialogs retain danger/primary. Do not add an unnecessary confirmation merely to demonstrate colors.
+For an explicit non-destructive Yes/No decision, use success and danger respectively. This convention does not recolor checkbox/radio values or imply that choosing No deletes anything. Use danger for Discard and primary for Keep editing when offering to discard a draft. Do not add an unnecessary confirmation merely to demonstrate colors.
 
 Public color and variant props remain independent. Primary is a theme color, not an action-role API. Filled and outline describe presentation, not authorization, keyboard activation, or business semantics. The backend default remains available for unspecified actions; this guide does not globally change omitted props to primary/filled. An explicit variant takes precedence over an agreed regional uiButtonVariant strategy, contextual defaults and the backend default. Regional strategies are useful for shared preferences, while explicit props preserve deliberate exceptions.
 
@@ -44,7 +44,7 @@ Public color and variant props remain independent. Primary is a theme color, not
 
 Use primary for ordinary actions at both emphasis levels. A secondary action is not a reason to choose the secondary theme color: express its quieter resting presentation with neutral. Peer actions whose ranking is unclear may all use filled. Supporting utilities, preset choices and informational icon actions still use primary with a variant appropriate to their context.
 
-Reserve secondary button color for a concrete, documented semantic or integration requirement that primary with an appropriate variant cannot fulfill. Record the requirement, why primary is insufficient, and an observable acceptance check. Position in a row, reduced importance, an assumed neutral/gray palette, or toolkit defaults alone are not sufficient justification for an authored selection. No ordinary demo-authored action currently needs this exception. The color catalog deliberately demonstrates all supported roles and is an explicit exception; backend-default specimens remain tests of omission.
+Reserve secondary button color for a concrete, documented semantic or integration requirement that primary with an appropriate variant cannot fulfill. Record the requirement, why primary is insufficient, and an observable acceptance check. Position in a row, reduced importance, an assumed neutral/gray palette, or toolkit defaults alone are not sufficient justification for an authored selection.
 
 ## Compositions and exceptions
 
