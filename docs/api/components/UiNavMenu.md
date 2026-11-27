@@ -4,7 +4,7 @@ Navigation from an entry collection, with confirmed current state. Import from `
 
 ```vue
 <UiNavMenu :binding="navigation.bindings.navMenu"
-  presentation="vertical-tree" aria-label="Travel navigation" />
+  presentation="vertical-tree" width="full" aria-label="Travel navigation" />
 ```
 
 | Input | Contract |
@@ -12,6 +12,7 @@ Navigation from an entry collection, with confirmed current state. Import from `
 | `binding?: UiNavMenuBinding` | Coordinated source/current/path/requests |
 | `control?: UiEntryControl`, `modelValue?: string` | Manual alternative; cannot be mixed with binding |
 | `presentation?: UiNavMenuPresentation` | horizontal (default), vertical-tree, vertical-popup, icon-popup |
+| `width?: 'full' \| 'content'` | Fill the parent's offered width or size the menu to its content within that offer. Omission uses the backend's default for the selected presentation. |
 | `expandedKeys?: readonly string[]` | Optional external expansion for vertical-tree; emits update:expandedKeys |
 | `aria-label: string` | Navigation accessible name |
 
@@ -31,7 +32,18 @@ Verify all three levels, icons, exact current and ancestor treatment, ignored co
 
 Vertical roots and every persistent tree level reserve a stable leading icon column, including levels without artwork. Child labels advance beyond parent labels regardless of icons. Independent floating submenu surfaces retain per-surface icon columns; horizontal roots retain per-item icon/label spacing. Authors supply no placeholders or spacing. See the [navigation menu guide](../../guides/navigation-menus.md#presentation).
 
-The three vertical presentations share root geometry within each backend. Mode changes close floating sessions, retain persistent expansion and keep focus on a surviving entry or ancestor. Allocation changes animate when motion is allowed. Unmounting starts a new view session; business-controlled expandedKeys remains authoritative.
+The three vertical presentations keep their root icon alignment within each backend. Mode changes close floating sessions, retain persistent expansion and keep focus on a surviving entry or ancestor. Allocation changes animate when motion is allowed. Unmounting starts a new view session and business-controlled expandedKeys remains authoritative.
+
+Labelled side navigation (`vertical-tree` and `vertical-popup`) has zero outer
+inline padding. Supply any shared sidebar inset through its host, such as
+[UiContent](UiContent.md). Use `width="full"` to span the offered width. Root
+row targets and current highlights reach the menu's inner edges. The backend
+owns padding inside each row and indentation for nested entries.
+`width="content"` requests intrinsic sizing, capped by the parent offer.
+See the backend's navigation guide for the default width of each presentation.
+The width applies to the root surface. Horizontal entries retain their own
+sizes, icon rails retain compact targets, and floating submenus size
+independently. An explicit width requires `navigation.menu.width.v1`.
 
 Root navigation supplies a themed boundary toward adjacent content. UiNavbar adopts horizontal menu separation; an explicitly designated UiRegionLayout navigationRegion can adopt the full adjoining edge. Unrelated or nested regions do not suppress it. Boundary dimensions, glyph sizes and native treatments remain backend-owned.
 

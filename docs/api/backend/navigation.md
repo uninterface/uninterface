@@ -44,6 +44,17 @@ All types below are exported from `@uninterface/uninterface/backend`. They are d
 
 Register the actual navigation surface and its owned popups through `useUiMenuPopup`, directly or via `useUiNavigationPresentation`. Core uses this registration to implement `UiNavMenu.ownsTarget()` across teleports, including during responsive focus handoffs. Keep unrelated menus out of that scope and release targets as their views unmount.
 
+With `navigation.menu.width.v1`, honor `UiNavMenuViewBinding.width` on the root
+surface. `full` consumes the parent offer and stretches labelled vertical
+row targets to the menu's inner inline edges. Labelled vertical root lists
+use zero outer inline padding in both width modes. Preserve row padding,
+nested indentation and separate floating surface geometry.
+`content` uses intrinsic width, capped by the same offer. Omission retains
+the backend's presentation default.
+Keep the intrinsic sizes of horizontal entries, rail targets, and floating
+submenu surfaces independent of this request. Width changes retain mounted
+entries, current state and focus.
+
 
 ### useUiMenuView
 
@@ -124,7 +135,12 @@ Render leading icons and forward entry/icon slots at every depth, including grou
 
 `useUiNavigationPresentation(binding: () => UiNavMenuViewBinding, surface: Ref<HTMLElement | undefined>)` is an optional backend helper for mode-switch mechanics. It measures the backend surface before/after a presentation change, animates changed width/height with reduced-motion support, cancels interrupted motion and retains focus on an available entry or ancestor. It returns hint, hintId and target event bindings for rail labels on hover/focus; the backend renders the themed tooltip in its overlay target (body when none), with the supplied position and identity. Escape/scroll/teardown dismisses it without consuming native menu interaction. An expanded rail root suppresses its hint, including a hint already visible before native expansion. Render only one hint mechanism per item; do not add a second native tooltip alongside it. Backends render their own surface and rows; data-entry-key identifies focus targets. This helper does not determine row dimensions or icon artwork.
 
-UiNavMenuViewBinding.boundary is none or a logical inline-start/inline-end/block-start/block-end edge. Core coordinates ownership; backends render exactly that root edge (or the normal orientation edge for manually constructed bindings that omit it), removing duplicate native root borders while preserving active indicators. UiNavbar receives data-navigation-boundary on its target. Root vertical geometry must agree across tree/flyout/rail; floating submenu surfaces remain independently sized. Native rows and leading slots supply geometry; core does not prescribe a DOM tree. The default catalogue includes menu-item for missing rail artwork.
+UiNavMenuViewBinding.boundary is none or a logical inline-start/inline-end/block-start/block-end edge. Core coordinates ownership; backends render exactly that root edge (or the normal orientation edge for manually constructed bindings that omit it), removing duplicate native root borders while preserving active indicators. UiNavbar receives data-navigation-boundary on its target.
+
+Keep root icon alignment consistent across tree, flyout, and rail. Root width
+follows the [width binding](#uinavmenuviewbinding). Native rows and leading slots
+supply the geometry. The default catalogue includes `menu-item` for missing rail
+artwork.
 
 
 ### Keyboard context-menu event ownership

@@ -36,6 +36,7 @@
         modelValue?: string
         ariaLabel?: string
         presentation?: UiNavMenuPresentation
+        width?: 'full' | 'content'
         expandedKeys?: readonly string[]
       }
     >(),
@@ -110,6 +111,11 @@
       )
     )
       throw new Error('Unsupported navigation presentation.')
+    if (props.width !== undefined) {
+      if (props.width !== 'full' && props.width !== 'content')
+        throw new Error('UiNavMenu: width must be full or content.')
+      assertUiCapabilities(uiBackend, ['navigation.menu.width.v1'])
+    }
     return {
       entries:
         props.presentation === 'icon-popup'
@@ -118,6 +124,7 @@
       status: view.status.value,
       label: props.ariaLabel,
       presentation: props.presentation,
+      width: props.width,
       boundary: boundary.value,
     }
   })

@@ -218,6 +218,7 @@ export interface UiMenuViewBinding {
 }
 export interface UiNavMenuViewBinding {
   presentation: import('../navigation/menu').UiNavMenuPresentation
+  width?: 'full' | 'content'
   boundary?: import('../navigation/boundary').NavigationBoundary
   entries: readonly UiEntryViewNode[]
   status: UiEntryStatusViewBinding
