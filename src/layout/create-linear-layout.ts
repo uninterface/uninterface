@@ -12,6 +12,7 @@ import { availableHeightKey } from './hosting'
 import { flowSpacer } from './flow'
 import { layoutChildren, resolveLayout, type UiLayoutOptions } from './linear'
 import { hasRegionContent } from './regions'
+import { layoutSeparator } from './separator'
 
 const startEndGroups = ['start', 'end'] as const
 
@@ -53,12 +54,17 @@ export function createLinearLayout(
       provide(availableHeightKey, ref(undefined))
       const symbolKeys = new Map<symbol, number>()
       return () => {
-        const children = startEnd
+        const declared = startEnd
           ? startEndGroups.flatMap((name) => {
               const nodes = slots[name]?.() ?? []
               return hasRegionContent(nodes) ? [{ key: name, name, nodes }] : []
             })
           : layoutChildren(slots.default?.() ?? [], symbolKeys)
+        const isSeparator = (child: (typeof declared)[number]) =>
+          'node' in child &&
+          (child.node.type as { [layoutSeparator]?: boolean })[layoutSeparator]
+        const hasSeparators = declared.some(isSeparator)
+        const children = declared.filter((child) => !isSeparator(child))
         const spacers =
           arrangement === 'flow'
             ? children
@@ -70,12 +76,27 @@ export function createLinearLayout(
                 .map(({ key }) => key)
             : []
         const spacerKeys = new Set(spacers)
+        const separators: { first: string; second: string }[] = []
+        let previous: string | undefined
+        let boundary = false
+        for (const child of declared) {
+          if (isSeparator(child)) {
+            boundary = true
+          } else {
+            const key = spacerKeys.has(child.key) ? undefined : child.key
+            if (boundary && previous && key)
+              separators.push({ first: previous, second: key })
+            previous = key
+            boundary = false
+          }
+        }
         const resolved = resolveLayout(
           { ...props, 'aria-label': props.ariaLabel },
           children.length,
         )
         const requirements = new Set(['layout.linear.v1', 'layout.reactive.v1'])
         if (startEnd) requirements.add('layout.start-end.v1')
+        if (hasSeparators) requirements.add('layout.separator.v1')
         if (spacers.length) requirements.add('layout.flow-spacer.v1')
         if (resolved.division !== 'content')
           requirements.add('layout.division.v1')
@@ -96,6 +117,7 @@ export function createLinearLayout(
           items: children.map((child) => child.key),
           startEnd: startEnd || undefined,
           spacers: spacers.length ? spacers : undefined,
+          separators: separators.length ? separators : undefined,
           zItems: zParts.sync(children),
         }
         return h(

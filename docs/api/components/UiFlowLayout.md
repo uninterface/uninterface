@@ -57,6 +57,7 @@ allocations and handles alignment, wrapping, and scrolling.
 
 Declare `layout.flow.v1`, `layout.linear.v1`, and `layout.reactive.v1`. Add
 `layout.flow-spacer.v1` when a direct [UiSpacer](UiSpacer.md) participates.
+Add `layout.separator.v1` when declaring a direct [UiSeparator](UiSeparator.md).
 Wrapping requires `layout.wrap.v1`, explicit alignment requires `layout.align.v1`,
 and named scrolling requires `layout.scroll.v1`. Unsupported combinations and
 missing capabilities raise errors. Default stretch is part of shared linear behavior.

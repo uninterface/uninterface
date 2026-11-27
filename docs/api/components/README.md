@@ -79,6 +79,7 @@ Import these components from `@uninterface/uninterface`. Each reference covers b
 - [UiLayout](UiLayout.md)
 - [UiNavbar](UiNavbar.md)
 - [UiRegionLayout](UiRegionLayout.md)
+- [UiSeparator](UiSeparator.md) — decorative line between layout peers.
 - [UiSpacer](UiSpacer.md) — spare space in a flow layout or input frame.
 - [UiStartEndLayout](UiStartEndLayout.md) — two groups that keep their logical edges when wrapping.
 

@@ -6,6 +6,7 @@ Use the component references for supported syntax, combinations and defaults.
 |---|---|
 | Linear direction, extent, division, wrapping and bounded scrolling | [UiLayout](../api/components/UiLayout.md) |
 | Content-sized peer flow | [UiFlowLayout](../api/components/UiFlowLayout.md) |
+| Decorative line between linear layout peers | [UiSeparator](../api/components/UiSeparator.md) |
 | Two groups at opposite logical edges, including when wrapped | [UiStartEndLayout](../api/components/UiStartEndLayout.md) |
 | Start/main/end regions and one bounded vertical scroll group | [UiRegionLayout](../api/components/UiRegionLayout.md) |
 | Equal-width columns with automatic source-order rows | [UiGridLayout](../api/components/UiGridLayout.md) |

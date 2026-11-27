@@ -134,6 +134,7 @@ Core applies defaults, validates current options, flattens participating childre
 | `layout.baseline.v1` | First-baseline alignment in horizontal allocations, including wrapped rows |
 | `layout.wrap.v1` | Horizontal content flow across rows |
 | `layout.scroll.v1` | Named, focusable overflow regions within supplied bounds |
+| `layout.separator.v1` | Required when a direct [UiSeparator](UiSeparator.md) is declared |
 
 Use [UiGridLayout](UiGridLayout.md) for equal-width shared columns and automatic rows, [UiRegionLayout](UiRegionLayout.md) for adjustable adjacent region splits, and [UiDrawer](UiDrawer.md) with [UiDrawerLayout](UiDrawerLayout.md) for retained drawer expansion and docking. UiLayout itself supplies no resize or drawer state. General grid spans/placement, reversed order, compact rails, allocation persistence, and general strategy negotiation are outside these APIs. Use ordinary Vue composition for conditional children. Card/header/footer presentation belongs to separate frame/composition contracts.
 

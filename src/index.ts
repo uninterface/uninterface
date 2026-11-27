@@ -20,6 +20,7 @@ export {
   default as UiInputFrameSpacer,
 } from './components/UiInputFrameSpacer.vue'
 export { default as UiSpacer } from './components/UiSpacer.vue'
+export { default as UiSeparator } from './components/UiSeparator.vue'
 export { default as UiInputFrame } from './components/UiInputFrame.vue'
 export { default as UiTextInput } from './components/UiTextInput.vue'
 export { default as UiCheckbox } from './components/UiCheckbox.vue'

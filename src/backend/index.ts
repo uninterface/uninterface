@@ -149,6 +149,8 @@ export interface UiLayoutViewBinding extends UiResolvedLayout {
   items: readonly string[]
   /** Flow allocation keys that absorb spare space and have no content slot. */
   spacers?: readonly string[]
+  /** Decorative lines between existing peer allocation keys. */
+  separators?: readonly { first: string; second: string }[]
   /** Named start and end groups retain their logical edges on wrapped rows. */
   startEnd?: boolean
   /** Optional framing of stable allocation keys. Does not change slot content. */
@@ -308,6 +310,7 @@ export type { UiFocusPresentationBinding } from '../presentation/focus'
 export { useUiLayoutResizeView } from './layoutResizeView'
 export { flowSpacerLayoutStyle, flowSpacerItemStyle } from './layoutFlowSpacer'
 export { startEndLayoutItemStyle } from './layoutStartEnd'
+export { UiLayoutSeparators } from './layoutSeparators'
 
 export interface UiModalViewProps {
   /** Body owns overflow by default; content delegates normal scrolling to bounded descendants. */

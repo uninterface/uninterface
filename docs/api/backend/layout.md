@@ -30,6 +30,17 @@ allocation into flex geometry and counteract the extra gap next to each empty
 spacer. Supply the same gap that the view uses to lay out its peers. Leave the
 existing keyed peer wrappers in place when the last spacer is removed.
 
+`layout.separator.v1` adds optional `separators` to UiLayoutViewBinding.
+Each record names two consecutive peer allocations with `first` and `second`.
+Draw a decorative line inside their existing gap. The line is perpendicular to
+the arrangement direction and visible only while the peers share a line in a
+wrapping flow. Keep allocation keys, gap, wrap threshold and focus order
+independent of the decoration.
+
+The optional [UiLayoutSeparators](#uilayoutseparators) helper can paint the lines.
+Keep the containing blocks and hit targets of existing descendants the same
+when separators are added or removed.
+
 `startEnd: true` identifies a full-width, horizontal, wrapping allocation with
 content division and centered cross-axis alignment. The only possible item keys
 are `start` and `end` in that order. Each named slot can have multiple roots.
@@ -38,6 +49,22 @@ retain its logical edge on whichever line contains it, even when it is the only
 group on that line. Keep the theme gap and keyed group wrappers across wraps.
 The optional `startEndLayoutItemStyle(binding, key)` helper attaches the edge
 alignment to a group's allocation wrapper in a wrapping flex view.
+
+#### UiLayoutSeparators
+
+Import this optional Vue component from `@uninterface/uninterface/backend`.
+Render it inside the layout root when the view binding supplies separator pairs.
+It measures allocation wrappers and paints the lines in its own out-of-flow
+element, tracking scrolling and clipping its own decoration.
+
+| Prop | Type | Purpose |
+|---|---|---|
+| `root` | `HTMLElement \| undefined` | The layout root. Pass the view's element ref, which can be undefined until mount. |
+| `binding` | `UiLayoutViewBinding` | Required. Supplies allocation keys, separator pairs, and the arrangement direction. |
+| `itemId` | `(key: string) => string` | Required. Returns the allocation wrapper's DOM ID. Each wrapper with that ID must be a direct child of `root`. |
+| `color` | `string` | Required. The backend's CSS color for the line. |
+| `thickness` | `string` | Required. The backend's CSS border width for the line. |
+| `length` | `string` | CSS length for the short vertical line, capped at the peers' combined cross-axis span. Defaults to `1rem`. |
 
 ### UiAppViewProps
 

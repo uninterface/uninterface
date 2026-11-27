@@ -94,6 +94,7 @@ This index links to the authoritative contracts. For assembly and shared respons
 | UiImagePreviewViewProps | [Contract](files.md#uiimagepreviewviewprops) |
 | UiInputFrameSpacer view | [Contract](input-frames.md#uiinputframespacer-view) |
 | flowSpacerLayoutStyle, flowSpacerItemStyle | [Contract](layout.md#uilayoutviewbinding) |
+| UiLayoutSeparators | [Contract](layout.md#uilayoutseparators) |
 | startEndLayoutItemStyle | [Contract](layout.md#uilayoutviewbinding) |
 | UiInputFrameViewProps | [Contract](input-frames.md#uiinputframeviewprops) |
 | UiKeyValueItemViewProps | [Contract](feedback.md#uikeyvalueitemviewprops) |
