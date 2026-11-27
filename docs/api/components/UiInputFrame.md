@@ -18,7 +18,7 @@ Default content may interleave the supported children. Optional leading/trailing
 |---|---|
 | Single-line UiTextInput | Implicit whole-string draft, or explicit `projection`; inherits restrictions, naming, feedback and shared surface |
 | UiButton | Keeps native action/form semantics and visible action focus; blocked under frame readonly unless `allowWhenReadonly`; reset remains blocked |
-| UiInputFrameSpacer | Invisible content participant; receives spare inline space after capped editors grow; no value or tab stop |
+| [UiSpacer](UiSpacer.md) | Invisible content participant; receives spare inline space after capped editors grow; no value or tab stop |
 | UiIcon | Passive square artwork, preserving its existing optional accessible name |
 | Text and passive native wrappers | No value binding or extra focus stop; supported wrappers are listed in the guide |
 | UiPopover | Cooperating forwarder: host/reference participates; popup content starts outside frame field/surface scope; engagement remains coordinated |

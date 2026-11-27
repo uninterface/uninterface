@@ -6,6 +6,7 @@ Use the component references for supported syntax, combinations and defaults.
 |---|---|
 | Linear direction, extent, division, wrapping and bounded scrolling | [UiLayout](../api/components/UiLayout.md) |
 | Content-sized peer flow | [UiFlowLayout](../api/components/UiFlowLayout.md) |
+| Two groups at opposite logical edges, including when wrapped | [UiStartEndLayout](../api/components/UiStartEndLayout.md) |
 | Start/main/end regions and one bounded vertical scroll group | [UiRegionLayout](../api/components/UiRegionLayout.md) |
 | Equal-width columns with automatic source-order rows | [UiGridLayout](../api/components/UiGridLayout.md) |
 | Responsive context separate from layout props | [Responsive layouts](../guides/responsive-layouts.md) |
@@ -147,6 +148,15 @@ Proposed input rules: each participating share must be positive and finite, and 
 An allocation policy must have a documented meaning that can be understood without knowing CSS. Candidate examples include equal shares, content-based allocation, and giving one region its required space while another receives the remainder.
 
 An algorithm contract must define its inputs, guarantees, response to insufficient space, and interaction with visibility and user adjustment. “Automatic” is not sufficient unless its observable behavior is specified. These examples are candidates, not an adopted set of algorithms or a requirement to accept arbitrary author code.
+
+### Spare space in a flow
+
+[UiSpacer](../api/components/UiSpacer.md) is a passive direct UiFlowLayout child.
+It absorbs spare space in source order along the flow axis after sizing peers
+and retaining their normal theme gaps. Multiple spacers on a line share the
+remainder. The input-frame use follows the same intent with editor growth
+receiving priority. Spaces do not create resize handles, accessibility objects,
+or tab stops.
 
 ### Adjustable splits
 

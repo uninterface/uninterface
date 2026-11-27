@@ -168,7 +168,7 @@ The [dynamic z-order contract](dynamic-z-order.md) defines core-owned ordering a
 
 ### Layout density support
 
-UiLayout, UiFlowLayout and UiGridLayout implement numeric peer-spacing intent through uiLayoutDensity. Supporting backends support -1/0/1, require unanimity and retain their original defaults at zero or without an answer. Density uses logical strategy scope rather than inherited CSS. Region allocations remain adjoining; nested ordinary layouts can participate. No direct form, choice-group, list/table, padding, typography or control-size adjustment is implied. See the [guide](../guides/layout-density.md) and each backend's strategy documentation for concrete mappings and evidence limits.
+UiLayout, UiFlowLayout, UiStartEndLayout and UiGridLayout implement numeric peer-spacing intent through uiLayoutDensity. Supporting backends support -1/0/1, require unanimity and retain their original defaults at zero or without an answer. Density uses logical strategy scope rather than inherited CSS. Region allocations remain adjoining; nested ordinary layouts can participate. No direct form, choice-group, list/table, padding, typography or control-size adjustment is implied. See the [guide](../guides/layout-density.md) and each backend's strategy documentation for concrete mappings and evidence limits.
 
 ## Collection header adaptation selection
 

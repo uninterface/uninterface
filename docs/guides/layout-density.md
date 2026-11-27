@@ -33,7 +33,7 @@ Depth one limits the request to the directly participating layout; deeper logica
 
 ## Ownership and scope
 
-UiLayout and UiFlowLayout apply density between their children. UiGridLayout applies it between rows and columns. These three components are the implemented scope. Forms, choice groups, lists and tables do not directly participate; future support needs its own contract. UiRegionLayout allocations remain adjoining, but ordinary layouts inside their content may participate.
+UiLayout and UiFlowLayout apply density between their children. [UiStartEndLayout](../api/components/UiStartEndLayout.md) applies it between its two groups, including when they wrap onto separate lines. UiGridLayout applies it between rows and columns. Forms, choice groups, lists and tables do not directly participate; future support needs its own contract. UiRegionLayout allocations remain adjoining, but ordinary layouts inside their content may participate.
 
 Consumers choose the semantic level and scope and retain control lifetimes. Core resolves scoped strategy answers; backends own concrete gaps or toolkit classes. Control surfaces/hit targets, typography and content insets are not scaled by this strategy. A backend may remove surplus row whitespace around a direct item while preserving the control’s interaction area and feedback. This is a local layout accommodation, so it still works when depth one targets only the layout. It does not cross a nested layout or opaque content wrapper. UiControlSize is a separate concern.
 

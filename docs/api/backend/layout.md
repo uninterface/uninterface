@@ -13,10 +13,31 @@ Layout bindings, theme spacing, density and adjustable regions.
 
 Vertical content-sized tracks must retain intrinsic content height under a bounded host, including `content` entries in mixed division. The supplied views use `max-content` for those rows: CSS Grid `auto` can shrink toward the allocation wrappers' zero minimum height. Numeric tracks retain their allocation rules, and horizontal tracks retain their existing wrapping/sizing behavior. Let the requested scrollport expose excess content; do not clip overflowing native editors or reduce their dimensions to conceal undersized content rows.
 
-Extends `UiResolvedLayout` with optional `density: UiLayoutDensity` (agreed -1/0/1 intent), `spacing: 'peers' | 'none'`, `'aria-label'?: string` and `items: readonly string[]`. Core selects `peers` for public UiLayout/UiFlowLayout and `none` for ordinary UiRegionLayout allocations. `peers` requests theme-owned separation between items; `none` requires adjoining allocations with no layout-added gap, outer margin or inset. This choice is local to this arrangement, never inherited by nested layouts. Each item string is a stable key and the name of a slot containing exactly one participating child. Render the slots in supplied order, preserving their keyed allocation roots across option changes. The backend owns each wrapper, geometry, gap, and scroll behavior; do not inspect or recreate child component state. UiLayout requires one backend `UiLayout.vue` module with a required `binding: UiLayoutViewBinding` prop, dynamically named child slots, no emitted events, and no exposed handle. Fallthrough attributes belong to its root.
+Extends `UiResolvedLayout` with optional `density: UiLayoutDensity` (agreed -1/0/1 intent), `spacing: 'peers' | 'none'`, `'aria-label'?: string` and `items: readonly string[]`. Core selects `peers` for public UiLayout, UiFlowLayout and UiStartEndLayout and `none` for ordinary UiRegionLayout allocations. `peers` requests theme-owned separation between items; `none` requires adjoining allocations with no layout-added gap, outer margin or inset. This choice is local to this arrangement, never inherited by nested layouts. Each item string is a stable key and normally names a slot containing one participating child. Render the slots in supplied order, preserving their keyed allocation roots across option changes. The backend owns each wrapper, geometry, gap, and scroll behavior; do not inspect or recreate child component state. UiLayout requires one backend `UiLayout.vue` module with a required `binding: UiLayoutViewBinding` prop, dynamically named child slots, no emitted events, and no exposed handle. Fallthrough attributes belong to its root.
 
 The [UiLayout contract](../components/UiLayout.md) defines division, wrapping, extent and scroll guarantees, failures, and known host-bound constraints. The backend consumes core-validated layout options, including reactive updates; it must not independently detect responsive context. `layout.reactive.v1` requires these updates to preserve keyed content instances, input state, and meaningful focus. Layout roots carry their own styles and work without a backend provider ancestor. Apply the binding's `aria-label` to the actual scrollable region, together with its region semantics, rather than an arbitrary wrapper. Named scrollports need keyboard focus and visible focus feedback; non-scroll layouts should not create gratuitous landmarks/tab stops. Exact peer-gap dimensions are backend choices, not business props; a binding requesting no separation must be honored. CSS grid and flex flow are possible implementations, not mandatory backend markup.
 
+
+A flow with spacers supplies `spacers?: readonly string[]` in the binding. These
+keys participate in item order and have no content slot. Render each as a
+non-interactive, accessibility-hidden allocation using
+`layout.flow-spacer.v1`. Ordinary peers retain their normal theme separation.
+`flowSpacerLayoutStyle(binding)` and
+`flowSpacerItemStyle(binding, key, gap)` are optional backend helpers. The
+second helper takes the active peer gap on the flow axis as a CSS length
+expression, including the appropriate density mapping. The helpers opt the
+allocation into flex geometry and counteract the extra gap next to each empty
+spacer. Supply the same gap that the view uses to lay out its peers. Leave the
+existing keyed peer wrappers in place when the last spacer is removed.
+
+`startEnd: true` identifies a full-width, horizontal, wrapping allocation with
+content division and centered cross-axis alignment. The only possible item keys
+are `start` and `end` in that order. Each named slot can have multiple roots.
+An omitted item consumes no space. `layout.start-end.v1` requires each group to
+retain its logical edge on whichever line contains it, even when it is the only
+group on that line. Keep the theme gap and keyed group wrappers across wraps.
+The optional `startEndLayoutItemStyle(binding, key)` helper attaches the edge
+alignment to a group's allocation wrapper in a wrapping flex view.
 
 ### UiAppViewProps
 
@@ -79,7 +100,7 @@ Supplied views report effective minimum, maximum and current percentages with th
 
 UiLayoutPresentation additionally accepts `peerSpacingLevels?: Partial<Record<-1 | 1, UiLayoutPresentation['peerSpacing']>>`. Supply complete spacing descriptors for supported compact/spacious levels; zero always selects peerSpacing. Missing levels are unsupported and filtered before query agreement. The module remains static and side-effect-free. Concrete spacing belongs to the backend, and each supported nonzero mapping must supply a valid gap or spacing class, just like peerSpacing.
 
-Core UiLayout resolves uiLayoutDensityQuery at the existing `layout` node and sends the optional agreed density in UiLayoutViewBinding; UiFlowLayout delegates to that same node. UiGridLayout resolves at `grid-layout` and consumes the same backend descriptors. Backends select the matching nonzero descriptor or the default descriptor, replacing previous classes/gaps reactively. Never scale control sizes or inherit a CSS density variable across query barriers. `spacing: 'none'` always suppresses peer gap/classes regardless of density. Region allocation helpers do not create extra density-query nodes. Scope, conflict and omission must restore the backend's original default.
+Core UiLayout resolves uiLayoutDensityQuery at the existing `layout` node and sends the optional agreed density in UiLayoutViewBinding. UiFlowLayout and UiStartEndLayout delegate to that same node. UiGridLayout resolves at `grid-layout` and consumes the same backend descriptors. Backends select the matching nonzero descriptor or the default descriptor, replacing previous classes/gaps reactively. Never scale control sizes or inherit a CSS density variable across query barriers. `spacing: 'none'` always suppresses peer gap/classes regardless of density. Region allocation helpers do not create extra density-query nodes. Scope, conflict and omission must restore the backend's original default.
 
 Verify reactive replacement, keyed input and focus retention, default restoration, target/depth/stopAt and query barriers, and zero gaps on region allocations. Use a browser to measure the resulting layout.
 

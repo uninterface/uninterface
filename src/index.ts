@@ -15,7 +15,11 @@ export { defineUiI18n, useUiI18n } from './i18n/context'
 export { useUiColorMode } from './presentation/color-mode'
 export { default as UiForm } from './components/UiForm.vue'
 export { default as UiField } from './components/UiField.vue'
-export { default as UiInputFrameSpacer } from './components/UiInputFrameSpacer.vue'
+export {
+  /** @deprecated Use UiSpacer inside UiInputFrame. */
+  default as UiInputFrameSpacer,
+} from './components/UiInputFrameSpacer.vue'
+export { default as UiSpacer } from './components/UiSpacer.vue'
 export { default as UiInputFrame } from './components/UiInputFrame.vue'
 export { default as UiTextInput } from './components/UiTextInput.vue'
 export { default as UiCheckbox } from './components/UiCheckbox.vue'
@@ -26,6 +30,7 @@ export { default as UiRegionLayout } from './components/UiRegionLayout.vue'
 export { default as UiGridLayout } from './components/UiGridLayout.vue'
 export type { UiGridLayoutProps } from './layout/grid'
 export { default as UiFlowLayout } from './components/UiFlowLayout.vue'
+export { default as UiStartEndLayout } from './components/UiStartEndLayout.vue'
 export type { UiFlowLayoutProps } from './layout/flow'
 export type {
   UiRegionLayoutProps,

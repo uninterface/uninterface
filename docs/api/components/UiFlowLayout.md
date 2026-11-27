@@ -40,7 +40,7 @@ Give dynamic children stable unique keys. Property changes and additions/removal
 
 ## Sizing, alignment and continuation
 
-Items use their content size along the flow direction and stay together at its starting edge; spare space is not divided into equal or proportional shares. Concrete gaps belong to the backend/theme. Wrapping distributes complete items into independently laid-out rows; it does not establish shared grid columns.
+Items use their content size along the flow direction and stay together at its starting edge by default. A direct [UiSpacer](UiSpacer.md) puts unused room at its declared position, leaving peer sizing and theme gaps intact. Wrapping distributes complete items into independently laid-out rows; it does not establish shared grid columns.
 
 Alignment operates across the flow direction: vertically within a horizontal row, horizontally within a vertical sequence. Start/end follow the applicable logical edge, including RTL for vertical flow's horizontal alignment. Stretch gives the allocation the available cross-axis space (the row's height when wrapping); it does not force an intrinsically sized descendant such as a button to grow. Child components still honor their own sizing contracts. For example, a full-width control can use a stretched allocation, while an inline button can retain its natural width.
 
@@ -50,9 +50,16 @@ An oversized item can wrap internally if it supports that behavior, or overflow.
 
 ## Implementation and acceptance
 
-Core supplies `layout.flow.v1`; the composition fixes content allocation and forwards flow properties and keyed content to UiLayout. No backend UiFlowLayout module is required. Backends fulfill linear allocation, reactive updates, cross-axis alignment, wrapping and named scrolling through their UiLayout view. Alignment targets allocation wrappers; core does not prescribe concrete DOM or CSS.
+Core supplies `layout.flow.v1` and resolves content allocation through the
+same linear allocation code as UiLayout. The backend
+[UiLayout view](../backend/layout.md#uilayoutviewbinding) renders the keyed
+allocations and handles alignment, wrapping, and scrolling.
 
-Declare `layout.flow.v1`, `layout.linear.v1`, and `layout.reactive.v1`, plus `layout.wrap.v1`, `layout.align.v1` for explicit alignment, and `layout.scroll.v1` as used. Unsupported combinations and missing capabilities fail loudly. Ordinary default stretch is part of the shared linear behavior.
+Declare `layout.flow.v1`, `layout.linear.v1`, and `layout.reactive.v1`. Add
+`layout.flow-spacer.v1` when a direct [UiSpacer](UiSpacer.md) participates.
+Wrapping requires `layout.wrap.v1`, explicit alignment requires `layout.align.v1`,
+and named scrolling requires `layout.scroll.v1`. Unsupported combinations and
+missing capabilities raise errors. Default stretch is part of shared linear behavior.
 
 Exercise direction, wrapping, alignment and conditional item participation in a flow with an editable item. Check item order, empty flows, retained focus and values, scroll naming and invalid alignment requests. In a browser, measure row wrapping and cross-axis alignment and exercise keyboard scrolling.
 

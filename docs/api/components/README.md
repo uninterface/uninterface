@@ -23,7 +23,7 @@ Import these components from `@uninterface/uninterface`. Each reference covers b
 
 ## Input frames and search
 
-- [UiInputFrameSpacer](UiInputFrameSpacer.md) — remaining inline space after bounded frame editors.
+- [UiInputFrameSpacer](UiInputFrameSpacer.md) — deprecated compatibility export.
 - [UiInputFrame](UiInputFrame.md) — one shared compound-input surface.
 - [UiSuggestions](UiSuggestions.md) — search candidate surface.
 
@@ -79,6 +79,8 @@ Import these components from `@uninterface/uninterface`. Each reference covers b
 - [UiLayout](UiLayout.md)
 - [UiNavbar](UiNavbar.md)
 - [UiRegionLayout](UiRegionLayout.md)
+- [UiSpacer](UiSpacer.md) — spare space in a flow layout or input frame.
+- [UiStartEndLayout](UiStartEndLayout.md) — two groups that keep their logical edges when wrapping.
 
 ## Overlays and stacking
 

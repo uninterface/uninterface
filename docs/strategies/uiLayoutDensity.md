@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Request closer or wider separation between related layout items without choosing CSS gaps or changing their data/control ownership. Implemented for UiLayout, UiFlowLayout and UiGridLayout. See [layout density](../guides/layout-density.md) for an independent-checkbox example.
+Request closer or wider separation between related layout items without choosing CSS gaps or changing their data/control ownership. Implemented for UiLayout, UiFlowLayout, UiStartEndLayout and UiGridLayout. See [layout density](../guides/layout-density.md) for an independent-checkbox example.
 
 ## API and values
 
@@ -30,7 +30,7 @@ Optional backend level mappings declare support; unsupported answers are ignored
 
 ## Use and implementation responsibility
 
-Apply through UiStrategy.use. Layout targets are `layout` (including UiFlowLayout's logical layout) and `grid-layout`. Target, depth and stopAt scopes and family/query barriers follow the [strategy guide](../guides/strategies.md). Supported answers require unanimity before rendering. [uiLayoutDensityQuery](../api/constants/uiLayoutDensityQuery.md) allows custom contributors and query barriers.
+Apply through UiStrategy.use. Layout targets are `layout` (including UiFlowLayout and UiStartEndLayout) and `grid-layout`. Target, depth and stopAt scopes and family/query barriers follow the [strategy guide](../guides/strategies.md). Supported answers require unanimity before rendering. [uiLayoutDensityQuery](../api/constants/uiLayoutDensityQuery.md) allows custom contributors and query barriers.
 
 Core owns scope and agreement. Backends own actual spacing through their static layout presentation module. Density changes peer separation, including documented backend removal of surplus row whitespace around direct control items. It does not scale control surfaces/hit targets, fonts, content/frame insets or adjoining UiRegionLayout allocations. Nested participating layouts inherit within the declared limits; there is no inherited CSS gap that bypasses a barrier. Forms, choice groups, lists and tables do not directly consume this strategy in this implementation.
 

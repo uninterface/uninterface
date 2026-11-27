@@ -9,10 +9,18 @@ import { uiLayoutPresentation } from '@uninterface/backend/layout'
 import { uiLayoutDensityQuery } from '../strategy/common'
 import { assertUiCapabilities } from '../backend/capabilities'
 import { availableHeightKey } from './hosting'
+import { flowSpacer } from './flow'
 import { layoutChildren, resolveLayout, type UiLayoutOptions } from './linear'
+import { hasRegionContent } from './regions'
+
+const startEndGroups = ['start', 'end'] as const
 
 // Private composition shares allocation logic without exposing spacing props.
-export function createLinearLayout(spacing: 'peers' | 'none') {
+export function createLinearLayout(
+  spacing: 'peers' | 'none',
+  arrangement?: 'flow' | 'start-end',
+) {
+  const startEnd = arrangement === 'start-end'
   return defineComponent({
     name: spacing === 'peers' ? 'UiLayout' : 'UiRegionAllocation',
     inheritAttrs: false,
@@ -29,7 +37,11 @@ export function createLinearLayout(spacing: 'peers' | 'none') {
     },
     setup(props, { slots, attrs }) {
       const z = useZComponent()
-      const zParts = useZAllocations(z.binding, () => props.zParts)
+      const zParts = useZAllocations(
+        z.binding,
+        () => props.zParts,
+        startEnd ? startEndGroups : undefined,
+      )
       const node = spacing === 'peers' ? useUiStrategyNode('layout') : undefined
       if (node) provideStrategyView(node)
       const density = node?.query(
@@ -41,12 +53,30 @@ export function createLinearLayout(spacing: 'peers' | 'none') {
       provide(availableHeightKey, ref(undefined))
       const symbolKeys = new Map<symbol, number>()
       return () => {
-        const children = layoutChildren(slots.default?.() ?? [], symbolKeys)
+        const children = startEnd
+          ? startEndGroups.flatMap((name) => {
+              const nodes = slots[name]?.() ?? []
+              return hasRegionContent(nodes) ? [{ key: name, name, nodes }] : []
+            })
+          : layoutChildren(slots.default?.() ?? [], symbolKeys)
+        const spacers =
+          arrangement === 'flow'
+            ? children
+                .filter(
+                  (child) =>
+                    'node' in child &&
+                    (child.node.type as { [flowSpacer]?: boolean })[flowSpacer],
+                )
+                .map(({ key }) => key)
+            : []
+        const spacerKeys = new Set(spacers)
         const resolved = resolveLayout(
           { ...props, 'aria-label': props.ariaLabel },
           children.length,
         )
         const requirements = new Set(['layout.linear.v1', 'layout.reactive.v1'])
+        if (startEnd) requirements.add('layout.start-end.v1')
+        if (spacers.length) requirements.add('layout.flow-spacer.v1')
         if (resolved.division !== 'content')
           requirements.add('layout.division.v1')
         if (resolved.wrap) requirements.add('layout.wrap.v1')
@@ -64,16 +94,24 @@ export function createLinearLayout(spacing: 'peers' | 'none') {
           ...resolved,
           'aria-label': props.ariaLabel,
           items: children.map((child) => child.key),
+          startEnd: startEnd || undefined,
+          spacers: spacers.length ? spacers : undefined,
           zItems: zParts.sync(children),
         }
         return h(
           View,
           { ...attrs, binding },
           Object.fromEntries(
-            children.map((child) => [
-              child.key,
-              () => zParts.wrap(child.key, child.node),
-            ]),
+            children
+              .filter(({ key }) => !spacerKeys.has(key))
+              .map((child) => [
+                child.key,
+                () =>
+                  zParts.wrap(
+                    child.key,
+                    'node' in child ? child.node : child.nodes,
+                  ),
+              ]),
           ),
         )
       }

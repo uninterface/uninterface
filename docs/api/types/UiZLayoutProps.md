@@ -4,7 +4,7 @@ Common stacking props for participating layouts. Exported from `@uninterface/uni
 
 ## API
 
-Extends `UiZOrderProps` with `zParts?: UiZParts`. Implemented by UiLayout, UiFlowLayout, UiGridLayout and UiRegionLayout. It does not imply zParts support on other components.
+Extends `UiZOrderProps` with `zParts?: UiZParts`. Implemented by UiLayout, UiFlowLayout, UiStartEndLayout, UiGridLayout and UiRegionLayout. See the component reference for its allocation names or indices.
 
 ## Ownership and verification
 

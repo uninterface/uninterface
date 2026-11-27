@@ -54,12 +54,12 @@ Editors ordinarily grow to share the available row. To keep a compound range com
   <span aria-hidden="true">to</span>
   <UiTextInput :projection="maximum" inputmode="decimal" :max-width-characters="11" />
   <span aria-hidden="true">USD</span>
-  <UiInputFrameSpacer />
+  <UiSpacer />
   <UiButton @click="clear">Clear</UiButton>
 </UiInputFrame>
 ```
 
-Import UiInputFrameSpacer from `@uninterface/uninterface`. The grouped UiField and projections follow the example above. Eleven character cells allow roughly ten digits plus a decimal separator; this is a display cap, not a length/precision constraint. Editors grow up to the cap, can shrink at narrow widths, and retain native horizontal scrolling for longer drafts. The spacer receives remaining space after editor growth, so USD stays close to the second editor and Clear sits at the logical end. It is invisible, non-focusable and has no value. Without capped editors there may be no space left for it. Physical arrangement and typography remain backend responsibilities; no business CSS or empty text segment is needed.
+Import UiSpacer from `@uninterface/uninterface`. The grouped UiField and projections follow the example above. Eleven character cells allow roughly ten digits plus a decimal separator; this is a display cap, not a length/precision constraint. Editors grow up to the cap, can shrink at narrow widths, and retain native horizontal scrolling for longer drafts. The spacer receives remaining space after editor growth, so USD stays close to the second editor and Clear sits at the logical end. It is invisible, non-focusable and has no value. Without capped editors there may be no space left for it. Physical arrangement and typography remain backend responsibilities; no business CSS or empty text segment is needed.
 
 ## Actions and editing lifetime
 
@@ -76,7 +76,7 @@ Use `disabled` to remove the whole frame from interaction: its wrapper cannot re
 
 ## Supported children and boundaries
 
-UiTextInput (single-line), UiButton, UiIcon, UiInputFrameSpacer and UiPopover declare participation internally. Unknown components are rejected even if they contain one of these components. UiLayout and UiStrategy are not automatic forwarders: place them around the frame, or implement a declared composition which forwards only its designated children. A custom component must declare and implement the contract below. This avoids accidental whole-field writes and styling changes through unrelated Vue wrappers.
+UiTextInput (single-line), UiButton, UiIcon, UiSpacer and UiPopover declare participation internally. Unknown components are rejected even if they contain one of these components. UiLayout and UiStrategy are not automatic forwarders: place them around the frame, or implement a declared composition which forwards only its designated children. A custom component must declare and implement the contract below. This avoids accidental whole-field writes and styling changes through unrelated Vue wrappers.
 
 Text/comments and Vue fragments are structural content. Compiler-hoisted static native markup is checked against the same passive-content rules. Passive native wrappers are span, div, p, strong, em, b, i, small, s, u, sub, sup, abbr, bdi, bdo, code, kbd, samp, time, br and wbr. They are traversed without granting a value binding. Focusable/editable wrappers and native event handlers require a cooperating component. Native controls and direct nested frames are not supported children. Direct async wrappers and Vue Teleport/Transition/Suspense/KeepAlive are not automatically transparent; encapsulate their behavior in a declared participant. HTML/third-party content remains available elsewhere in applications.
 

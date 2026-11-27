@@ -10,8 +10,10 @@
     type SlotsType,
     type VNode,
   } from 'vue'
-  import UiLayout from './UiLayout.vue'
+  import { createLinearLayout } from '../layout/create-linear-layout'
   import type { UiFlowLayoutProps } from '../layout/flow'
+
+  const FlowAllocation = /* @__PURE__ */ createLinearLayout('peers', 'flow')
 
   export default defineComponent({
     name: 'UiFlowLayout',
@@ -38,7 +40,7 @@
         if (Object.keys(slots).some((name) => name !== 'default'))
           throw new Error('UiFlowLayout: only the default slot is supported.')
         return h(
-          UiLayout,
+          FlowAllocation,
           {
             ...attrs,
             ...props,

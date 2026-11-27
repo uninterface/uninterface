@@ -31,7 +31,7 @@ UiSuggestionsViewProps.engagement?(boolean) reports actual popup engagement to c
 
 ### UiInputFrameSpacer view
 
-Backend `UiInputFrameSpacer.vue` renders a decorative, non-focusable, accessibility-hidden allocation with no binding, props, slots or events. It receives remaining inline space after editors have grown to their caps, using logical direction. Multiple spacers share remaining space. It must not compete equally for growth before editors reach their limits. Supplied backends use a zero-basis item and automatic logical start margin. No DOM/value content or validation owner is added. Declare `input.frame.sizing.v1` together with support for UiTextInputViewProps.maxWidthCharacters. Verify actual rendered editor roots, suffix proximity, end-action placement, narrow widths and RTL; selector checks alone do not prove geometry.
+Both business exports, UiSpacer and the deprecated UiInputFrameSpacer, use the same backend frame module. Backend `UiInputFrameSpacer.vue` renders a decorative, non-focusable, accessibility-hidden allocation with no binding, props, slots or events. It receives remaining inline space after editors have grown to their caps, using logical direction. Multiple spacers share remaining space. It must not compete equally for growth before editors reach their limits. Supplied backends use a zero-basis item and automatic logical start margin. No DOM/value content or validation owner is added. Declare `input.frame.sizing.v1` together with support for UiTextInputViewProps.maxWidthCharacters. Verify actual rendered editor roots, suffix proximity, end-action placement, narrow widths and RTL; selector checks alone do not prove geometry.
 
 
 ### useUiInputFrameSurface
