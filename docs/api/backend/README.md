@@ -9,7 +9,7 @@ Start with [assembly and package protocol](assembly.md) and the [backend complia
 | Responsibility | Reference |
 |---|---|
 | Assembly and package protocol | [Static imports, required modules, integration hooks, capabilities and customization documentation.](assembly.md) |
-| Presentation and accessibility | [Shared styling, native integration, hidden content containment, typography and native HTML.](presentation.md) |
+| Presentation and accessibility | [Avatars, shared styling, native integration, hidden content containment, typography and native HTML.](presentation.md) |
 | Controls, forms and focus | [Editor and action bindings, form association, focus handles, search and segmented selection.](controls.md) |
 | Strategy integration | [Query resolution, field policy, alignment and size integration.](strategies.md) |
 | Layout and allocation | [Layout bindings, theme spacing, density and adjustable regions.](layout.md) |

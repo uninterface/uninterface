@@ -61,6 +61,7 @@ This index links to the authoritative contracts. For assembly and shared respons
 | UiAppViewProps | [Contract](layout.md#uiappviewprops) |
 | UiBackendColorMode | [Contract](presentation.md#uibackendcolormode) |
 | UiBackendIntegration | [Contract](assembly.md#uibackendintegration) |
+| UiAvatarViewProps, uiAvatarImageProps | [Contract](presentation.md#uiavatarviewprops) |
 | UiBadgeViewProps | [Contract](feedback.md#uibadgeviewprops) |
 | UiProgressBarViewProps | [Contract](feedback.md#uiprogressbarviewprops) |
 | UiBreadcrumbsViewProps | [Contract](navigation.md#uibreadcrumbsviewprops) |

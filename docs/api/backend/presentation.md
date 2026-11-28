@@ -4,6 +4,36 @@
 
 Shared styling, native integration, hidden content containment, typography and native HTML.
 
+### UiAvatarViewProps
+
+`UiAvatar.vue` receives an optional validated square `size` in `px` or `em`,
+the agreed `sizeStep` (`-2 | -1 | 0 | 1 | 2`, neutral when unanswered),
+`shape` and `fit`. Use the explicit length when supplied. Resolve `em` at the
+avatar root, independently of the fallback typography. Otherwise map the
+step to a backend theme size, using the ordinary size and the documented
+fallback toward zero. For the neutral step, use a diameter of about 3.25 times
+the backend's default avatar fallback font size. Base this on the theme's
+fallback typography so that slot content can style its own text independently.
+Keep the footprint through image and fallback changes.
+
+The optional `image` binding has a per-request `key`, `src`, `visible`, and
+`onLoad` and `onError` callbacks. Key the image by the request identity and
+report load or error for that request. Show the image once visible and display
+the centered `fallback` slot in the full area while it is hidden or absent.
+Supply a default identity glyph when the slot is omitted. Clip both content
+types to the requested shape. Forward the root's accessibility attributes and
+keep the visual image and fallback from exposing duplicate text. Prefer a
+compatible native avatar surface. Declare `avatar.v1` after verifying this
+contract. See [UiAvatar](../components/UiAvatar.md).
+
+`uiAvatarImageProps(image: NonNullable<UiAvatarViewProps['image']>)` returns
+native image props for `v-bind` on the keyed `<img>`. Use it from
+`@uninterface/uninterface/backend` to bind listeners to the request rendered on
+that node and report a request that completed before hydration. The view
+continues to supply the key, visibility, empty alt text, fit and styling.
+An adapter using different markup must preserve request identity and reconcile
+image results already available when the view hydrates.
+
 ## Input-styled control agreement
 
 For components declaring this style, implement the [input-styled control contract](../../contracts/input-styled-controls.md): logical-start placement and normal filling of the field allocation, one coherent native-themed input surface, meaningful visible focus across participating parts/actions, and a single-row default with documented multiline/wrapping adaptations. Keep field-label arrangement with UiField/form strategies. Backends own padding, dimensions, typography and state treatments; consumers must not supply compensating CSS.

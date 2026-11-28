@@ -8,7 +8,7 @@ Uninterface defines the intended presentation and behavior; backends fulfill the
 
 A control normally occupies one coherent rectangular region. Rounded corners are compatible with this principle. Avoid a fragmented silhouette formed by several offset rectangles with gaps or empty cutouts, even if their enclosing bounding box is rectangular. The purpose is predictable alignment and a readily understood control boundary.
 
-A full circle, such as a round avatar, is a recognized exception. This is an example of an established shape in the design language, not an exhaustive exception list or a declaration that an avatar component is implemented.
+A full circle, such as a round [UiAvatar](../api/components/UiAvatar.md), is a recognized exception.
 
 This principle concerns the presented control as a whole. It does not require a visible border, background, single DOM element or single tab stop. Internal parts may have their own arrangement while participating in a coherent surface. Separate controls in a layout remain separate controls and may have normal peer spacing. An attached popup has its own surface; it does not have to fit inside the closed control's rectangle.
 

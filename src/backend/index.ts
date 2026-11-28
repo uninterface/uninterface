@@ -3,7 +3,7 @@ import type { UiContentProps } from '../layout/content'
 import type { UiFocusPresentationBinding } from '../presentation/focus'
 import type { UiModalCloseTrigger } from '../controls/modal'
 import type { UiResolvedLayout } from '../layout/linear'
-import type { UiLayoutDensity } from '../strategy/types'
+import type { UiControlSize, UiLayoutDensity } from '../strategy/types'
 import type {
   UiThemeColorDefinition,
   UiThemeColor,
@@ -358,6 +358,21 @@ export interface UiNoticeViewProps {
   dismissible: boolean
   dismissLabel: string
   onDismissRequest: () => void
+}
+export { uiAvatarImageProps } from './avatarImage'
+
+export interface UiAvatarViewProps {
+  size?: string
+  sizeStep: UiControlSize
+  shape: 'circle' | 'square'
+  fit: 'cover' | 'contain'
+  image?: {
+    key: symbol
+    src: string
+    visible: boolean
+    onLoad: () => void
+    onError: () => void
+  }
 }
 export interface UiBadgeViewProps {
   color: UiThemeColor

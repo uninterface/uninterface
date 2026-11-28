@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Control size: Request a smaller, ordinary or larger control footprint across a region. Participating fields coordinate their labels, annotations and feedback with editors; buttons also participate. This does not set layout width or peer spacing.
+Request a smaller, ordinary or larger footprint across a region. Participating fields coordinate their labels, annotations and feedback with editors. Buttons and [UiAvatar](../api/components/UiAvatar.md) also participate. This strategy concerns component size. Layout width and peer spacing have their own policies.
 
 ## API and values
 
@@ -32,7 +32,7 @@ Core recommendations are best-default intent values, not mandatory active declar
 
 Requests generalize toward zero when a level is unavailable: `-2 → -1 → 0` and `2 → 1 → 0`. Zero uses the backend’s ordinary supported level. A three-level backend therefore maps -2/-1 to small and 1/2 to large. Levels are ordinal, neither multipliers nor additive offsets. Native density can change footprint without scaling typography; actual mappings are documented by each backend, under the [support and fallback contract](../contracts/strategy.md#common-vocabulary-and-support).
 
-Omission retains the backend’s configured default, which can differ from an explicit ordinary-size request. Native size context must not bypass targets, depth or query barriers.
+Omission retains the component's configured default, which can differ from an explicit ordinary-size request. UiAvatar uses its neutral size when there is no agreed request and honors its explicit `size` first. Native size context must not bypass targets, depth or query barriers.
 
 ## Use and implementation responsibility
 

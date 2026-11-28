@@ -198,6 +198,7 @@ export { default as UiMultiSelect } from './components/UiMultiSelect.vue'
 export type { UiMultiSelectValue } from './controls/multiple-selection'
 
 export { default as UiNotice } from './components/UiNotice.vue'
+export { default as UiAvatar } from './components/UiAvatar.vue'
 export { default as UiBadge } from './components/UiBadge.vue'
 export { default as UiProgressBar } from './components/UiProgressBar.vue'
 export type { UiProgressBarProps } from './presentation/progress'

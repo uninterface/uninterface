@@ -108,6 +108,7 @@ Import these components from `@uninterface/uninterface`. Each reference covers b
 
 ## Strategies and presentation
 
+- [UiAvatar](UiAvatar.md) — identity image and fallback.
 - [UiStrategy](UiStrategy.md)
 
 ## Localization, themes and icons
